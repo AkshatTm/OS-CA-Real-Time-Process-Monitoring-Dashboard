@@ -249,13 +249,22 @@ async def get_process_details(pid: int):
         proc = psutil.Process(pid)
         
         with proc.oneshot():
-            # Get detailed info
-            pinfo = proc.as_dict(attrs=[
+            # Get detailed info - use platform-specific attributes
+            base_attrs = [
                 'pid', 'name', 'username', 'status', 'create_time',
                 'cpu_percent', 'memory_percent', 'memory_info',
-                'num_threads', 'num_fds', 'exe', 'cwd', 'cmdline',
-                'environ', 'ppid', 'nice', 'ionice'
-            ])
+                'num_threads', 'exe', 'cwd', 'cmdline',
+                'environ', 'ppid'
+            ]
+            
+            # Add platform-specific attributes
+            if platform.system() != "Windows":
+                base_attrs.extend(['num_fds', 'nice'])
+                # ionice is Linux-only
+                if platform.system() == "Linux":
+                    base_attrs.append('ionice')
+            
+            pinfo = proc.as_dict(attrs=base_attrs)
             
             # Get connections
             try:
