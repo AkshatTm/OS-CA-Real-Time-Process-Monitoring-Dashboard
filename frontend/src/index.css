@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-dark-border;
+  }
+
+  body {
+    @apply bg-dark-bg text-white font-sans antialiased;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-surface;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-border rounded-full hover:bg-gray-600 transition-colors;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-dark-surface/50 backdrop-blur-xl border border-dark-border/50 rounded-2xl shadow-2xl;
+  }
+
+  .glass-card-elevated {
+    @apply bg-dark-elevated/70 backdrop-blur-xl border border-dark-border/50 rounded-2xl shadow-2xl;
+  }
+
+  .gradient-border {
+    @apply relative before:absolute before:inset-0 before:rounded-2xl before:p-[1px] before:bg-gradient-to-r before:from-accent-primary before:to-accent-secondary before:-z-10;
+  }
+
+  .stat-card {
+    @apply glass-card p-6 hover:scale-[1.02] transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 bg-gradient-to-r from-accent-primary to-accent-secondary text-white rounded-lg font-medium hover:shadow-lg hover:shadow-accent-primary/50 transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-danger {
+    @apply px-4 py-2 bg-accent-danger text-white rounded-lg font-medium hover:shadow-lg hover:shadow-accent-danger/50 transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 bg-dark-elevated/50 text-gray-300 rounded-lg font-medium hover:bg-dark-elevated transition-all duration-200;
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(
+    to right,
+    #1a1a24 0%,
+    #2a2a3a 20%,
+    #1a1a24 40%,
+    #1a1a24 100%
+  );
+  background-size: 1000px 100%;
+}
