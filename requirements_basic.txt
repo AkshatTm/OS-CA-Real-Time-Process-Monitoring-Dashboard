@@ -1,0 +1,5 @@
+# Basic Process Monitor Requirements
+# Install with: pip3 install -r requirements_basic.txt
+
+# Core library for system and process monitoring
+psutil==5.9.6
