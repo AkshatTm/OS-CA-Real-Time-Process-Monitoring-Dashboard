@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateTime();
   updateStats();
 
-  // Set up auto-refresh
+  // Set up auto refresh
   setInterval(updateStats, UPDATE_INTERVAL);
   setInterval(updateTime, 1000);
 });
