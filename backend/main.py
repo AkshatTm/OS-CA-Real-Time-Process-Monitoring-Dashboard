@@ -26,6 +26,16 @@ PROTECTED_PROCESSES = [
     'svchost.exe', 'explorer.exe'
 ]
 
+# Alert thresholds for resource monitoring
+ALERT_THRESHOLDS = {
+    'cpu_warning': 80,      # Warning at 80% CPU
+    'cpu_critical': 95,     # Critical at 95% CPU
+    'memory_warning': 85,   # Warning at 85% memory
+    'memory_critical': 95,  # Critical at 95% memory
+    'disk_warning': 90,     # Warning at 90% disk
+    'disk_critical': 95     # Critical at 95% disk
+}
+
 app = FastAPI(title="Task Manager Pro API", version="1.0.0")
 
 # Enable CORS for React frontend
@@ -88,6 +98,60 @@ def get_gpu_info():
         print(f"GPU monitoring error: {e}")
         return None
 
+def check_alerts(cpu_percent, memory_percent, disk_percent):
+    """Check if any resource usage exceeds alert thresholds"""
+    alerts = []
+    
+    # Check CPU alerts
+    if cpu_percent >= ALERT_THRESHOLDS['cpu_critical']:
+        alerts.append({
+            'type': 'cpu',
+            'severity': 'critical',
+            'message': f'CPU usage is critically high',
+            'value': round(cpu_percent, 1)
+        })
+    elif cpu_percent >= ALERT_THRESHOLDS['cpu_warning']:
+        alerts.append({
+            'type': 'cpu',
+            'severity': 'warning',
+            'message': f'CPU usage is high',
+            'value': round(cpu_percent, 1)
+        })
+    
+    # Check Memory alerts
+    if memory_percent >= ALERT_THRESHOLDS['memory_critical']:
+        alerts.append({
+            'type': 'memory',
+            'severity': 'critical',
+            'message': f'Memory usage is critically high',
+            'value': round(memory_percent, 1)
+        })
+    elif memory_percent >= ALERT_THRESHOLDS['memory_warning']:
+        alerts.append({
+            'type': 'memory',
+            'severity': 'warning',
+            'message': f'Memory usage is high',
+            'value': round(memory_percent, 1)
+        })
+    
+    # Check Disk alerts
+    if disk_percent >= ALERT_THRESHOLDS['disk_critical']:
+        alerts.append({
+            'type': 'disk',
+            'severity': 'critical',
+            'message': f'Disk space is critically low',
+            'value': round(disk_percent, 1)
+        })
+    elif disk_percent >= ALERT_THRESHOLDS['disk_warning']:
+        alerts.append({
+            'type': 'disk',
+            'severity': 'warning',
+            'message': f'Disk space is running low',
+            'value': round(disk_percent, 1)
+        })
+    
+    return alerts
+
 @app.get("/")
 async def root():
     """Root endpoint"""
@@ -134,8 +198,12 @@ async def get_system_stats():
         # GPU Info
         gpu_info = get_gpu_info()
         
+        # Check for alerts
+        alerts = check_alerts(cpu_percent, memory.percent, disk.percent)
+        
         return {
             "timestamp": datetime.now().isoformat(),
+            "alerts": alerts,
             "cpu": {
                 "percent": cpu_percent,
                 "cores": {
