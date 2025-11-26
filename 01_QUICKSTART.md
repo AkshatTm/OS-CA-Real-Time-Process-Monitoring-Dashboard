@@ -1,326 +1,328 @@
-# 🚀 Quick Start Guide# 🚀 Quick Start Guide# Quick Start Guide - Task Manager Pro
-
-Get **Task Manager Pro** up and running in under 5 minutes!Get Task Manager Pro up and running in under 5 minutes!## 🚀 Get Started in 3 Steps!
-
----## ⚡ Prerequisites### Step 1: Install Backend Dependencies
-
-## ⚡ PrerequisitesBefore you begin, ensure you have the following installed:```bash
-
-Before you begin, ensure you have the following installed:cd backend
-
-- **Python 3.8 or higher** → [Download Python](https://www.python.org/downloads/)- **Python 3.8 or higher** - [Download Python](https://www.python.org/downloads/)pip install -r requirements.txt
-
-- **Node.js 18 or higher** → [Download Node.js](https://nodejs.org/)
-
-- **npm** (comes with Node.js)- **Node.js 18 or higher** - [Download Node.js](https://nodejs.org/)```
-
-### 💡 Verify Installations- **npm** (comes with Node.js) or **yarn**
-
-````bash### Step 2: Install Frontend Dependencies
-
-python --version  # Should be 3.8+
-
-node --version    # Should be 18+> **💡 Tip:** Check your versions with:
-
-npm --version     # Any recent version
-
-```> `bash`bash
+---cd frontendcd frontend
 
 
 
----> python --versioncd frontend
+### Method 3: Run as Electron Desktop Appnpm install
 
 
 
-## 📦 Installation> node --versionnpm install
+**Terminal 1 - Start Backend:**cd ..This will automatically install all dependencies for both backend and frontend.npm run dev
 
 
 
-### Option 1: Automated Setup (Recommended)> npm --version```
-
-
-
-**Windows:**> ```
-
-```bash>
-
-# Navigate to project directory> ```
-
-cd task-manager-pro
-
-### Step 3: Run the Application
-
-# Run setup script
-
-setup.bat---
-
-````
-
-**Option A: Web Browser (Recommended for Development)**
-
-**Mac/Linux:**
-
-````````bash## 📦 Installation
-
-# Navigate to project directory
-
-cd task-manager-proTerminal 1 (Backend):
-
-
-
-# Make script executable### Option 1: Using Setup Script (Windows)
-
-chmod +x setup.sh
-
-```````bash
-
-# Run setup script
-
-./setup.sh```bashcd backend
-
-````````
-
-# 1. Navigate to project directorypython main.py
-
-### Option 2: Manual Setup
-
-cd task-manager-pro```
-
-**Step 1: Install Backend Dependencies**
-
-```````bash
+```bash```````
 
 cd backend
 
-pip install -r requirements.txt# 2. Run the setup scriptTerminal 2 (Frontend):
+python main.py```````````
 
-cd ..
-
-```setup.bat
-
-
-
-**Step 2: Install Frontend Dependencies**``````bash
-
-```bash
-
-cd frontendcd frontend
-
-npm install
-
-cd ..This will automatically install all dependencies for both backend and frontend.npm run dev
-
-```````
-
-```````````
+````````````
 
 ---
+
+**Terminal 2 - Start Electron:**
 
 ### Option 2: Manual Installation
 
-## 🎯 Running the Application
-
-Then open http://localhost:5173 in your browser.
-
-### Option 1: Automated Start (Recommended)
-
-#### Step 1: Install Backend Dependencies
-
-**Windows:**
-
-```bash**Option B: Electron Desktop App**
-
-start.bat
-
-``````````bash
-
-
-
-**Mac/Linux:**cd task-manager-pro/backendTerminal 1 (Backend):
-
-```bash
-
-chmod +x start.shpip install -r requirements.txt
-
-./start.sh
-
-`````````bash
-
-
-
-This will automatically start both backend and frontend!cd backend
-
-
-
-### Option 2: Manual Start#### Step 2: Install Frontend Dependenciespython main.py
-
-
-
-**Terminal 1 - Start Backend:**```````
-
-```bash
-
-cd backend```````bash
-
-python main.py
-
-```cd ../frontendTerminal 2 (Electron):
-
-
-
-You should see:npm install
-
-```
-
-🚀 Starting Task Manager Pro Backend...``````bash
-
-📡 API will be available at: http://localhost:8000
-
-📚 API docs at: http://localhost:8000/docscd frontend
-
-INFO:     Uvicorn running on http://0.0.0.0:8000
-
-```---npm run electron-dev
-
-
-
-**Terminal 2 - Start Frontend (Web Browser):**```````
-
-```bash
+```````````bash
 
 cd frontend## 🎯 Running the Application
 
-npm run dev
-
-```## 🎯 Features You Can Try
-
-
-
-You should see:### Method 1: Using Start Script (Windows)
-
-```
-
-VITE v6.0.3  ready in XXX ms1. **Dashboard** - View system overview
-
-
-
-➜  Local:   http://localhost:5173/````bash2. **Performance** - See real-time graphs
-
-➜  Network: use --host to expose
-
-```# In project root directory3. **Processes** - Manage running processes
-
-
-
-**Terminal 3 - Start Electron Desktop App (Optional):**start.bat   - Click on any process to see details
-
-```bash
-
-cd frontend```   - Use action buttons to suspend/kill processes
-
 npm run electron-dev
 
-```   - Search for specific processes
+```Then open http://localhost:5173 in your browser.
 
 
 
----This will open two terminal windows:
+This will open Task Manager Pro in a native desktop window.### Option 1: Automated Start (Recommended)
 
 
 
-## 🌐 Access the Application- **Terminal 1:** Backend server (FastAPI)## 🐛 Common Issues
+---#### Step 1: Install Backend Dependencies
 
 
 
-Once running, you can access:- **Terminal 2:** Frontend application (Electron)
+## 🎓 What You Can Do**Windows:**
 
 
 
-| Interface | URL | Description |**"Module not found" error?**
+Once running, you can:```bash**Option B: Electron Desktop App**
 
-|-----------|-----|-------------|
 
-| **Web App** | http://localhost:5173 | React app in browser |### Method 2: Manual Start
 
-| **Desktop App** | Auto-opens | Electron desktop application |
+### 📊 Monitor System Performancestart.bat
 
-| **Backend API** | http://localhost:8000 | REST API server |- Run `pip install -r requirements.txt` in backend folder
 
-| **API Docs** | http://localhost:8000/docs | Interactive API documentation |
 
-**Terminal 1 - Start Backend:**- Run `npm install` in frontend folder
+- View real-time CPU usage (overall and per-core)``````````bash
+
+- Track memory and swap usage
+
+- Monitor disk I/O and storage
+
+- Check network activity
+
+- View GPU statistics (if GPUtil installed)**Mac/Linux:**cd task-manager-pro/backendTerminal 1 (Backend):
+
+
+
+### 🔧 Manage Processes```bash
+
+
+
+- Browse all running processeschmod +x start.shpip install -r requirements.txt
+
+- Search and filter by name or PID
+
+- Sort by CPU, memory, status./start.sh
+
+- End processes (with force kill option)
+
+- Suspend and resume processes`````````bash
+
+- View detailed process information
+
+
+
+### 📈 Visualize Data
+
+This will automatically start both backend and frontend!cd backend
+
+- Real-time performance graphs
+
+- Historical CPU and memory charts
+
+- Per-core CPU visualization
+
+- Network transfer statistics### Option 2: Manual Start#### Step 2: Install Frontend Dependenciespython main.py
+
+
 
 ---
 
-```bash
 
-## 🎮 First Steps Tutorial
 
-cd backend**Can't kill process?**
+## 🛠️ Common Commands**Terminal 1 - Start Backend:**```````
 
-### 1️⃣ Explore the Dashboard (30 seconds)
 
+
+### Backend Commands```bash
+
+
+
+```bashcd backend```````bash
+# 🚀 Quick Start Guide — Task Manager Pro
+
+Get Task Manager Pro running in under 5 minutes.
+
+---
+
+## ⚡ Prerequisites
+
+- Python 3.8+ (check: `python --version`)
+- Node.js 18+ and npm (check: `node --version`, `npm --version`)
+
+---
+
+## 📦 Installation
+
+### Option A: Automated (Recommended on Windows)
+
+```powershell
+# From project root
+setup.bat
+```
+
+This installs backend (pip) and frontend (npm) dependencies.
+
+### Option B: Manual
+
+```powershell
+# Backend
+cd backend
+pip install -r requirements.txt
+
+# Frontend (new terminal)
+cd frontend
+npm install
+```
+
+---
+
+## 🎯 Running the Application
+
+### Method 1: Start both (Windows)
+
+```powershell
+# From project root
+start.bat
+```
+
+This launches:
+- Backend FastAPI: http://localhost:8000 (docs at /docs)
+- Frontend Vite dev server: http://localhost:5173
+
+### Method 2: Run manually
+
+```powershell
+# Terminal 1 — Backend
+cd backend
 python main.py
 
-- Open the application
+# Terminal 2 — Frontend
+cd frontend
+npm run dev
+```
 
-- See real-time **CPU** and **Memory** usage```- Run as administrator/sudo
+### Method 3: Electron desktop app (optional)
 
-- Check **system information** panel
+```powershell
+# After frontend is running, or use electron-dev to run both
+cd frontend
+npm run electron-dev
+```
+
+---
+
+## 🔍 Verify Setup
+
+1) Visit http://localhost:5173 — you should see the dashboard.
+2) Visit http://localhost:8000 — API banner appears.
+3) Visit http://localhost:8000/docs — interactive API docs load.
+
+---
+
+## 🧪 Testing
+
+```powershell
+# Backend tests
+cd backend
+pytest -q
+
+# Frontend tests
+cd ../frontend
+npm test
+```
+
+---
+
+## 🔐 Permissions (Windows)
+
+- Ending, suspending, resuming, or changing priority of some processes may require Administrator.
+- If you see “Access denied” errors:
+   - Close terminals, reopen PowerShell as Administrator, and rerun `start.bat`.
+
+---
+
+## 🆘 Troubleshooting
+
+- Port in use: Stop other apps on 8000/5173 or change ports.
+- Backend not reachable: Ensure `python main.py` is running without errors.
+- Frontend blank: Wait for Vite to compile; check terminal logs.
+- GPU stats missing: Install `gputil` and ensure a supported GPU is present.
+
+---
+
+## 🧭 What to Try First
+
+- Dashboard: CPU/Mem/Disk/Network overview with alerts.
+- Performance: Real-time charts and per-core usage.
+- Processes: Search, sort, end/suspend/resume, and view details.
+- Process Tree: Parent/child relations and quick stats.
+- Apps: Grouped resource usage by application name.
+**Solution:**- Open the application
+
+
+
+```bash- See real-time **CPU** and **Memory** usage```- Run as administrator/sudo
+
+cd backend
+
+pip install -r requirements.txt --upgrade- Check **system information** panel
+
+````
 
 - Watch the graphs update automatically
 
+### Frontend Won't Start
 
+**Problem:** `npm ERR! code EACCES` or permission errors
 
-### 2️⃣ View Performance Metrics (1 minute)**Terminal 2 - Start Frontend (Web):****Port already in use?**
+### 2️⃣ View Performance Metrics (1 minute)**Terminal 2 - Start Frontend (Web):\*\***Port already in use?\*\*
 
+**Solution:**
 
+````bash
 
-- Click **"Performance"** in the sidebar```bash
+# Clear cache and reinstall- Click **"Performance"** in the sidebar```bash
 
-- View detailed **CPU per-core usage**
+cd frontend
 
-- Monitor **memory trends**cd frontend- Backend uses port 8000
+rm -rf node_modules package-lock.json- View detailed **CPU per-core usage**
+
+npm cache clean --force
+
+npm install- Monitor **memory trends**cd frontend- Backend uses port 8000
+
+````
 
 - Check **disk I/O** statistics
 
+---
+
 npm run dev- Frontend uses port 5173
+
+## 📚 Next Steps
 
 ### 3️⃣ Manage Processes (2 minutes)
 
-```- Make sure these ports are free
+- Read the [Architecture Documentation](./03_ARCHITECTURE.md) for technical details
 
-- Click **"Processes"** in the sidebar
+- Check out [How It Works](./04_HOW_IT_WORKS.md) for deep dive explanations```- Make sure these ports are free
 
-- **Search** for a specific process (e.g., "chrome")
+- See [Troubleshooting Guide](./07_TROUBLESHOOTING.md) for more solutions
 
-- Click on a process to **view details**
+- Review [Contributing Guide](./08_CONTRIBUTING.md) to contribute- Click **"Processes"** in the sidebar
 
-- Try **suspending** a non-critical process**Terminal 3 - Start Frontend (Electron Desktop App):**## 📚 Project Structure
+---- **Search** for a specific process (e.g., "chrome")
 
-- **Resume** the suspended process
+## 🎯 Quick Reference- Click on a process to **view details**
 
-- **End** a safe process (e.g., notepad)```bash
+| Action | Command |- Try **suspending** a non-critical process**Terminal 3 - Start Frontend (Electron Desktop App):**## 📚 Project Structure
 
+| ----------------------- | ------------------------ |
 
+| Install all | `setup.bat` (Windows) |- **Resume** the suspended process
 
----cd frontend```
+| Start all | `start.bat` (Windows) |
 
+| Start backend | `cd backend && python main.py` |- **End** a safe process (e.g., notepad)```bash
 
+| Start frontend (web) | `cd frontend && npm run dev` |
 
-## 🛑 Stopping the Applicationnpm run electron-devtask-manager-pro/
+| Start frontend (Electron) | `cd frontend && npm run electron-dev` |
 
+| View API docs | http://localhost:8000/docs |
 
+| Access application | http://localhost:5173 |---cd frontend```
+
+| Run backend tests | `cd backend && pytest` |
+
+| Run frontend tests | `cd frontend && npm test` |
+
+---## 🛑 Stopping the Applicationnpm run electron-devtask-manager-pro/
+
+**🎉 Congratulations! Task Manager Pro is now running. Enjoy monitoring your system!**
 
 ### Using Automated Script```├── backend/
 
 - Simply close the terminal windows or press `Ctrl+C`
 
-│   ├── main.py              # FastAPI backend
+│ ├── main.py # FastAPI backend
 
 ### Manual Stop
 
-- Press `Ctrl + C` in each terminal window---│   └── requirements.txt     # Python dependencies
+- Press `Ctrl + C` in each terminal window---│ └── requirements.txt # Python dependencies
 
 - Or close the terminal windows directly
 
@@ -328,7 +330,7 @@ npm run dev- Frontend uses port 5173
 
 ---
 
-## 🌐 Access the Application    ├── src/
+## 🌐 Access the Application ├── src/
 
 ## ⚠️ Common Issues & Quick Fixes
 
@@ -336,7 +338,7 @@ npm run dev- Frontend uses port 5173
 
 ### Issue 1: "Port 8000 already in use"
 
-Once running, you can access:    │   ├── components/     # UI components
+Once running, you can access: │ ├── components/ # UI components
 
 **Problem:** Another application is using port 8000
 
@@ -344,23 +346,23 @@ Once running, you can access:    │   ├── components/     # UI components
 
 **Solution:**
 
-- **Web Interface:** http://localhost:5173    ├── package.json        # Node dependencies
+- **Web Interface:** http://localhost:5173 ├── package.json # Node dependencies
 
 **Windows:**
 
-```powershell- **Backend API:** http://localhost:8000    └── electron.js         # Electron configuration
+````powershell- **Backend API:** http://localhost:8000    └── electron.js         # Electron configuration
 
 netstat -ano | findstr :8000
 
 taskkill /PID <PID> /F- **API Documentation:** http://localhost:8000/docs```
 
-```
+````
 
 - **Electron App:** Opens automatically
 
 **Mac/Linux:**
 
-```bash## 💡 Tips
+`````bash## 💡 Tips
 
 lsof -ti:8000 | xargs kill -9
 
@@ -510,13 +512,11 @@ The application requires **both backend and frontend** to run simultaneously.**S
 
 The **Electron desktop app** performs better than the web browser version.pip install -r requirements.txt --upgrade
 
-```
+`````
 
 ### Tip 4: Check Backend Logs
 
 If something doesn't work, **check the backend terminal** for error messages.### Frontend Build Errors
-
-
 
 ### Tip 5: Auto-Refresh**Problem:** npm install fails
 
@@ -544,23 +544,17 @@ Now that you're up and running:npm install
 
 4. **🔧 Explore [API Documentation](http://localhost:8000/docs)** - Interactive API testing## 📚 Next Steps
 
-
-
 ---- Read the [Problem Statement](./02_PROBLEM_STATEMENT.md) to understand the project requirements
 
 - Check out the [Architecture Documentation](./03_ARCHITECTURE.md) to learn how it works
 
 ## 🆘 Need More Help?- Explore the [API Documentation](http://localhost:8000/docs) for backend endpoints
 
-
-
 - **Troubleshooting:** See [Troubleshooting Guide](./07_TROUBLESHOOTING.md)---
 
 - **Full Documentation:** Check [README.md](./README.md)
 
 - **Contributing:** Read [Contributing Guide](./08_CONTRIBUTING.md)## 💡 Pro Tips
-
-
 
 ---1. **Keep both terminals open** - The application needs both backend and frontend running
 
@@ -590,12 +584,13 @@ Before reporting issues, verify:
 
 - [ ] Running with appropriate permissions---
 
-
-
 ---**You're all set! Enjoy using Task Manager Pro! 🎉**
-
 
 **🎉 Congratulations! You're ready to use Task Manager Pro!**
 
 **Enjoy real-time system monitoring with a beautiful interface! 🚀**
+
+```
+
+```
 ```````````

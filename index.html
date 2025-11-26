@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Monitor - Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <h1>⚡ System Monitor</h1>
+        <div class="header-right">
+          <span class="time" id="currentTime">Loading...</span>
+          <button class="refresh-btn" onclick="refreshData()">
+            🔄 Refresh
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <!-- CPU Card -->
+        <div class="stat-card">
+          <div class="card-header">
+            <span class="icon">🖥️</span>
+            <h2>CPU Usage</h2>
+          </div>
+          <div class="card-body">
+            <div class="stat-value" id="cpuValue">0%</div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                id="cpuProgress"
+                style="width: 0%"
+              ></div>
+            </div>
+            <p class="stat-detail" id="cpuDetail">Cores: Loading...</p>
+          </div>
+        </div>
+
+        <!-- Memory Card -->
+        <div class="stat-card">
+          <div class="card-header">
+            <span class="icon">💾</span>
+            <h2>Memory Usage</h2>
+          </div>
+          <div class="card-body">
+            <div class="stat-value" id="memValue">0%</div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill memory"
+                id="memProgress"
+                style="width: 0%"
+              ></div>
+            </div>
+            <p class="stat-detail" id="memDetail">Used: Loading...</p>
+          </div>
+        </div>
+
+        <!-- Disk Card -->
+        <div class="stat-card">
+          <div class="card-header">
+            <span class="icon">💿</span>
+            <h2>Disk Usage</h2>
+          </div>
+          <div class="card-body">
+            <div class="stat-value" id="diskValue">0%</div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill disk"
+                id="diskProgress"
+                style="width: 0%"
+              ></div>
+            </div>
+            <p class="stat-detail" id="diskDetail">Used: Loading...</p>
+          </div>
+        </div>
+
+        <!-- Network Card -->
+        <div class="stat-card">
+          <div class="card-header">
+            <span class="icon">🌐</span>
+            <h2>Network</h2>
+          </div>
+          <div class="card-body">
+            <div class="network-stats">
+              <div class="network-item">
+                <span class="network-label">⬆️ Sent:</span>
+                <span class="network-value" id="netSent">0 MB</span>
+              </div>
+              <div class="network-item">
+                <span class="network-label">⬇️ Received:</span>
+                <span class="network-value" id="netReceived">0 MB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="charts-section">
+        <h2 class="section-title">📈 Performance History</h2>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3>CPU Usage Over Time</h3>
+            <canvas id="cpuChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Memory Usage Over Time</h3>
+            <canvas id="memChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Disk Usage Over Time</h3>
+            <canvas id="diskChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Process Table -->
+      <div class="process-section">
+        <h2 class="section-title">📊 Top Processes</h2>
+        <div class="table-container">
+          <table class="process-table">
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Process Name</th>
+                <th>CPU %</th>
+                <th>Memory %</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="processTableBody">
+              <tr>
+                <td colspan="5" class="loading">Loading processes...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Auto-refresh every 2 seconds | Simple System Monitor Demo</p>
+    </footer>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

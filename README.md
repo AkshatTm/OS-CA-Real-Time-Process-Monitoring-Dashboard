@@ -1,6 +1,6 @@
 # 🚀 Task Manager Pro
 
-**Project ID:** 12406898  
+**Project Title:** Real-Time Process Monitoring Dashboard
 **Team:** Kulvinder, Priyanshu Kamal, Akshat
 
 A modern, professional **Real-Time Process Monitoring Dashboard** built with **Electron**, **React**, **TailwindCSS**, and **Python FastAPI**. This project demonstrates core Operating System concepts including process management, CPU scheduling, memory management, and system monitoring.
@@ -333,7 +333,7 @@ Having issues? Check our comprehensive [Troubleshooting Guide](./07_TROUBLESHOOT
 ### Common Issues
 
 - **Port already in use** - Backend or frontend port conflicts
-- **Permission denied** - Process management requires elevated privileges
+- **Permission denied** - Some actions require elevated privileges (Windows: run PowerShell as Administrator and re-run `start.bat`)
 - **Module not found** - Dependencies not installed correctly
 - **Blank screen** - Backend not running or connection issues
 
@@ -376,14 +376,14 @@ task-manager-pro/
 - [ ] Historical data storage with database
 - [ ] Export system reports (PDF/CSV)
 - [ ] Performance alerts and notifications
-- [ ] Process priority management
+- [ ] Process priority management (extended presets and safeguards)
 - [ ] Network connections viewer
 - [ ] Startup programs manager
 - [ ] Temperature monitoring (CPU/GPU)
 - [ ] Dark/Light theme toggle
 - [ ] System tray integration
 - [ ] Multi-language support
-- [ ] WebSocket support for real-time updates
+- [ ] Electron packaging (electron-builder)
 - [ ] Remote monitoring capabilities
 
 **Want to contribute? See [Contributing Guide](./08_CONTRIBUTING.md)**
