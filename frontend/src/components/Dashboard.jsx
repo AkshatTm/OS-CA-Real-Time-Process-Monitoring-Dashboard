@@ -17,6 +17,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useState, useEffect } from "react";
+import AlertBanner from "./AlertBanner";
 
 export default function Dashboard({ systemStats, processes, loading }) {
   const [cpuHistory, setCpuHistory] = useState(Array(20).fill(0));
@@ -79,6 +80,11 @@ export default function Dashboard({ systemStats, processes, loading }) {
           Monitor your system performance in real-time
         </p>
       </div>
+
+      {/* Alert Banner */}
+      {systemStats.alerts && systemStats.alerts.length > 0 && (
+        <AlertBanner alerts={systemStats.alerts} />
+      )}
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
