@@ -1,28 +1,28 @@
-import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AlertBanner = ({ alerts }) => {
   if (!alerts || alerts.length === 0) return null;
 
   const getAlertColor = (severity) => {
     switch (severity) {
-      case 'critical':
-        return 'bg-red-500/20 border-red-500 text-red-200';
-      case 'warning':
-        return 'bg-yellow-500/20 border-yellow-500 text-yellow-200';
+      case "critical":
+        return "bg-red-500/20 border-red-500 text-red-200";
+      case "warning":
+        return "bg-yellow-500/20 border-yellow-500 text-yellow-200";
       default:
-        return 'bg-blue-500/20 border-blue-500 text-blue-200';
+        return "bg-blue-500/20 border-blue-500 text-blue-200";
     }
   };
 
   const getAlertIcon = (severity) => {
     switch (severity) {
-      case 'critical':
-        return '🔴';
-      case 'warning':
-        return '⚠️';
+      case "critical":
+        return "🔴";
+      case "warning":
+        return "⚠️";
       default:
-        return 'ℹ️';
+        return "ℹ️";
     }
   };
 
@@ -36,7 +36,9 @@ const AlertBanner = ({ alerts }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className={`p-4 rounded-lg border-l-4 backdrop-blur-sm ${getAlertColor(alert.severity)}`}
+            className={`p-4 rounded-lg border-l-4 backdrop-blur-sm ${getAlertColor(
+              alert.severity
+            )}`}
           >
             <div className="flex items-center gap-3">
               <span className="text-2xl">{getAlertIcon(alert.severity)}</span>

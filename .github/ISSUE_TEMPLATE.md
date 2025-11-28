@@ -1,7 +1,7 @@
 ---
 name: Enhancement
 about: Suggest an improvement for this project
-title: '[ENHANCEMENT] Add system alerts for high resource usage'
+title: "[ENHANCEMENT] Add system alerts for high resource usage"
 labels: enhancement, good first issue
 assignees: AkshatTm
 ---
@@ -15,6 +15,7 @@ Add a notification/alert system that warns users when system resources exceed ce
 Implement a resource monitoring alert system with the following features:
 
 ### Features to Add:
+
 1. **CPU Alert** - Warning when CPU usage exceeds 80%
 2. **Memory Alert** - Warning when memory usage exceeds 85%
 3. **Disk Alert** - Warning when disk usage exceeds 90%
@@ -31,11 +32,13 @@ Implement a resource monitoring alert system with the following features:
 ## 🔧 Technical Implementation
 
 ### Backend Changes:
+
 - Add threshold checking logic in `/api/system/stats` endpoint
 - Return alert status with system statistics
 - Make thresholds configurable
 
 ### Frontend Changes:
+
 - Create `AlertBanner.jsx` component
 - Add alert state management
 - Display visual indicators on dashboard
