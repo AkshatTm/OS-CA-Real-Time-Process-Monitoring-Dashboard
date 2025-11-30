@@ -31,9 +31,11 @@ This project demonstrates advanced OS concepts through a **hybrid architecture**
               └──────┬───────┘            │
                      ▼                    │
               ┌──────────────┐            │
-              │ Windows OS   │◄───────────┘
-              │   (Admin)    │ Direct access
-              └──────────────┘ for killing
+              │ Operating    │◄───────────┘
+              │ System       │ Cross-platform
+              │ (Admin/sudo) │ process control
+              └──────────────┘
+         Windows | macOS | Linux
 ```
 
 ## Why Hybrid Architecture?

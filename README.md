@@ -100,19 +100,26 @@ Our hybrid architecture solution exceeds the original requirements:
 - **Rust 1.70+** - [Install](https://rustup.rs)
 - **Python 3.8+** - [Download](https://python.org/downloads)
 - **Node.js 18+** - [Download](https://nodejs.org)
-- **Windows** with Administrator access
+- **Supported OS:** Windows 10/11, macOS 10.15+, or Linux (Ubuntu 20.04+, Fedora, Arch)
+- **Administrator/sudo access** (required for process termination)
 
 ### One-Command Startup
 
+**Windows:**
 ```bash
-# Automatic (recommended)
 START_ALL.bat
+```
+
+**macOS/Linux:**
+```bash
+chmod +x start_all.sh
+./start_all.sh
 ```
 
 This script:
 
 1. ✅ Starts Python backend (port 8001)
-2. ✅ Starts Rust backend as admin (port 8000)
+2. ✅ Starts Rust backend with sudo/admin (port 8000)
 3. ✅ Starts React frontend (port 5173)
 
 **See [QUICKSTART.md](./QUICKSTART.md) for manual setup and troubleshooting.**
@@ -145,10 +152,11 @@ This script:
          │                   │
          ↓                   ↓
 ┌─────────────────────────────────────────┐
-│   Windows OS (System Calls)             │
-│   - sysinfo (Rust)                      │
-│   - psutil (Python)                     │
-│   - nvml-wrapper (GPU)                  │
+│   Operating System (Cross-Platform)     │
+│   Windows 10/11 | macOS 10.15+ | Linux  │
+│   - sysinfo (Rust - cross-platform)     │
+│   - psutil (Python - cross-platform)    │
+│   - nvml-wrapper (GPU - NVIDIA only)    │
 └─────────────────────────────────────────┘
 ```
 
@@ -236,12 +244,12 @@ Use the **Apps** tab to:
 
 | Issue                    | Solution                                                                    |
 | ------------------------ | --------------------------------------------------------------------------- |
-| Port already in use      | Kill process: `netstat -ano \| findstr :8000` then `taskkill /F /PID <PID>` |
-| Rust backend won't start | Run `START_RUST_ADMIN.bat` (requires admin)                                 |
+| Port already in use      | **Windows:** `netstat -ano \| findstr :8000` then `taskkill /F /PID <PID>`<br>**macOS/Linux:** `lsof -ti:8000 \| xargs kill -9` |
+| Rust backend won't start | **Windows:** Run `START_RUST_ADMIN.bat`<br>**macOS/Linux:** `sudo cargo run --release` |
 | Python backend crashes   | Check it's using `host="127.0.0.1"` not `"0.0.0.0"`                         |
 | Frontend stuck loading   | Check both backends are running                                             |
-| Process killing fails    | Rust backend must run as administrator                                      |
-| GPU not detected         | Only NVIDIA GPUs supported, install drivers                                 |
+| Process killing fails    | **All platforms:** Backend must run with admin/sudo privileges              |
+| GPU not detected         | Only NVIDIA GPUs supported (all platforms), install drivers                 |
 
 **See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for complete guide.**
 
@@ -320,6 +328,7 @@ This project was developed as an **Operating Systems course assignment** and dem
 
 ## 🚀 Future Enhancements
 
+- [x] **Cross-platform support** (Windows, macOS, Linux) ✅
 - [ ] Historical data storage (database)
 - [ ] Export reports (PDF/CSV)
 - [ ] Performance alerts/notifications
@@ -328,7 +337,7 @@ This project was developed as an **Operating Systems course assignment** and dem
 - [ ] Startup programs manager
 - [ ] WebSocket for real-time updates
 - [ ] Docker containerization
-- [ ] macOS/Linux full support
+- [ ] ARM64 support (Apple Silicon)
 - [ ] Dark/Light theme toggle
 
 ---

@@ -11,7 +11,11 @@ Get our hybrid Rust + Python + TypeScript system monitoring dashboard running in
 - **Rust**: Latest stable version ([rustup.rs](https://rustup.rs))
 - **Python 3.8+**: With pip installed
 - **Node.js 18+**: With npm ([nodejs.org](https://nodejs.org))
-- **Windows OS**: Admin rights required
+- **Supported OS**: 
+  - Windows 10/11 (x64)
+  - macOS 10.15+ (Intel or Apple Silicon)
+  - Linux (Ubuntu 20.04+, Fedora 35+, Arch Linux)
+- **Admin/sudo rights**: Required for process termination
 
 ## Installation
 
@@ -38,15 +42,25 @@ cargo build --release
 
 ### Option 1: Automatic Startup (Recommended)
 
+**Windows:**
 ```bash
 # Run as Administrator
 START_ALL.bat
 ```
 
+**macOS/Linux:**
+```bash
+# Make executable (first time only)
+chmod +x start_all.sh
+
+# Run the script
+./start_all.sh
+```
+
 This will:
 
 - Start Python backend (port 8001)
-- Start Rust backend (port 8000)
+- Start Rust backend (port 8000) with admin/sudo
 - Start React frontend (port 5173)
 - Open browser automatically
 
@@ -55,14 +69,24 @@ This will:
 **Terminal 1 - Python Backend:**
 
 ```bash
-cd backend-v1-fastapi
+# Navigate to Python backend
+cd "older versions/v1-python-only/backend-v1-fastapi"
+
+# Run server
 python main.py
 ```
 
-**Terminal 2 - Rust Backend (as Administrator):**
+**Terminal 2 - Rust Backend:**
 
+*Windows (as Administrator):*
 ```bash
 START_RUST_ADMIN.bat
+```
+
+*macOS/Linux:*
+```bash
+cd backend
+sudo cargo run --release
 ```
 
 **Terminal 3 - Frontend:**
