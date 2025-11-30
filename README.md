@@ -58,6 +58,27 @@ A high-performance, modern system monitoring dashboard built with a **hybrid arc
 
 ---
 
+## 🎯 Problem Statement & Solution
+
+### 📝 Original Requirements
+**Create a graphical dashboard that displays real-time information about process states, CPU usage, and memory consumption. The tool should allow administrators to manage processes efficiently and identify potential issues promptly.**
+
+### ✅ How We Solved It
+Our hybrid architecture solution exceeds the original requirements:
+
+| Requirement | Our Implementation | Enhancement |
+|-------------|-------------------|-------------|
+| **Real-time process information** | ✅ 2-second refresh with dual backends | Added GPU monitoring, disk/network stats |
+| **Process states display** | ✅ Complete process status tracking | Color-coded status indicators |
+| **CPU usage monitoring** | ✅ Accurate per-process CPU percentages | Overall + per-core visualization |
+| **Memory consumption tracking** | ✅ Real-time memory usage | Memory percentage + absolute values |
+| **Administrator management** | ✅ Process termination with admin rights | Process details, application grouping |
+| **Issue identification** | ✅ Sort by CPU/Memory, search/filter | Performance graphs, trend analysis |
+
+**Innovation:** Hybrid Rust + Python architecture for optimal speed + accuracy balance.
+
+---
+
 ## 🛠️ Technology Stack
 
 | Layer                  | Technology         | Purpose                          | Why?                               |
@@ -262,9 +283,9 @@ task-manager-pro/
 
 ## 🎓 Educational Value
 
-This project demonstrates key **Operating System concepts**:
+This project was developed as an **Operating Systems course assignment** and demonstrates key OS concepts while solving the given problem statement.
 
-### Core OS Concepts
+### Academic Learning Outcomes
 
 1. **Process Management**
 
@@ -312,15 +333,21 @@ This project demonstrates key **Operating System concepts**:
 
 ---
 
-## 👥 Team
+## 🎓 Academic Project Information
 
-**Project Team:**
+### 👥 Team Members
+- **Akshat Tomar**
+- **Kulvinder**  
+- **Priyanshu Kamal**
 
-- Kulvinder
-- Priyanshu Kamal
-- Akshat
+### 📋 Project Details
+**Title:** Real-Time Process Monitoring Dashboard
 
-Built for **Operating Systems Course** - Real-Time Process Monitoring Dashboard
+**Problem Statement:**  
+Create a graphical dashboard that displays real-time information about process states, CPU usage, and memory consumption. The tool should allow administrators to manage processes efficiently and identify potential issues promptly.
+
+**Course:** Operating Systems  
+**Academic Year:** 2025
 
 ---
 
@@ -365,4 +392,4 @@ If you find this project helpful for learning OS concepts:
 
 ---
 
-**Task Manager Pro - High-Performance System Monitoring with Hybrid Architecture** 🚀
+**Task Manager Pro - Academic Project Demonstrating OS Concepts Through High-Performance System Monitoring** 🎓🚀

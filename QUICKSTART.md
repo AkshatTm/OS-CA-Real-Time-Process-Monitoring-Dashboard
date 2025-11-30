@@ -1,6 +1,10 @@
 # Quick Start Guide
 
-Get Task Manager Pro running in under 5 minutes.
+**Task Manager Pro** - Academic Operating Systems Course Project
+
+Get our hybrid Rust + Python + TypeScript system monitoring dashboard running in under 5 minutes.
+
+**Team:** Akshat Tomar, Kulvinder, Priyanshu Kamal
 
 ## Prerequisites
 
