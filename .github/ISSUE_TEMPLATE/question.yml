@@ -1,0 +1,91 @@
+name: Question
+description: Ask a question about Task Manager Pro usage, setup, or development
+title: "[QUESTION] "
+labels: ["question"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about Task Manager Pro? We're here to help!
+        
+        **Before asking**: Please check our documentation first:
+        - [QUICKSTART.md](../QUICKSTART.md) - Getting started guide
+        - [TROUBLESHOOTING.md](../TROUBLESHOOTING.md) - Common issues & solutions
+        - [ARCHITECTURE.md](../ARCHITECTURE.md) - Technical details
+        - [API_REFERENCE.md](../API_REFERENCE.md) - API documentation
+        
+  - type: dropdown
+    id: category
+    attributes:
+      label: Question Category
+      description: What type of question is this?
+      options:
+        - Installation & Setup
+        - Usage & Features
+        - Troubleshooting
+        - Development & Contributing
+        - Architecture & Design
+        - Performance & Optimization
+        - Cross-Platform Compatibility
+        - API Usage
+        - Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: "Ask your question here..."
+    validations:
+      required: true
+      
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Provide context about what you're trying to do
+      placeholder: |
+        What are you trying to accomplish?
+        What have you already tried?
+        What documentation have you checked?
+        
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment (if relevant)
+      description: System information if relevant to your question
+      placeholder: |
+        - OS: Windows 11, macOS 13, Ubuntu 22.04, etc.
+        - Version: Task Manager Pro v2.0
+        - Browser: Chrome 120, Firefox 121, etc.
+        - Hardware: CPU, RAM, GPU (if relevant)
+        
+  - type: textarea
+    id: expected
+    attributes:
+      label: What You Expected
+      description: What did you expect to happen or find?
+      placeholder: "I expected to see/find/be able to..."
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Any other details that might help answer your question
+      placeholder: "Screenshots, error messages, configuration details, etc."
+      
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm you've done the following
+      options:
+        - label: I have checked the existing documentation
+          required: true
+        - label: I have searched existing issues for similar questions
+          required: true
+        - label: I have provided sufficient context for my question
+          required: true
