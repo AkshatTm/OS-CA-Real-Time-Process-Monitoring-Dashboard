@@ -1,6 +1,9 @@
 # Architecture Overview
 
-Task Manager Pro uses a **hybrid architecture** combining Rust and Python to deliver both speed and accuracy.
+**Task Manager Pro** - Operating Systems Course Project  
+**Team:** Akshat Tomar, Kulvinder, Priyanshu Kamal
+
+This project demonstrates advanced OS concepts through a **hybrid architecture** combining Rust and Python to deliver both speed and accuracy in system monitoring.
 
 ## System Design
 
