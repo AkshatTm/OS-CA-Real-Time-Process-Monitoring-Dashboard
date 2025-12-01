@@ -1,21 +1,7 @@
-/**
- * updateTextToolkit.ts
- *
- * Self-contained text processing utilities for demos and local analysis.
- * No imports — pure helpers only. Designed to be independent and unused unless integrated.
- *
- * Includes: normalization, tokenization, n-grams, similarity & fuzzy helpers,
- * small TF-IDF utilities, highlight helpers, simple text mock generators and analyzers.
- */
-
 type TFMap = Record<string, number>;
 
 const WORD_SPLIT_RE = /[\s\-_\/,.!?:;()"\[\]{}<>\\|]+/;
 const NON_WORD_RE = /[^\p{L}\p{N}'’-]+/u;
-
-/* --------------------
- * Normalization helpers
- * -------------------- */
 
 /** Trim and collapse repeated whitespace to single spaces */
 export const collapseWhitespace = (s: string): string =>
@@ -57,10 +43,6 @@ export const removeDiacritics = (s: string): string =>
 export const regexEscape = (s: string): string =>
     s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-/* --------------------
- * Tokenizers & splitters
- * -------------------- */
-
 /** Split into tokens respecting alphanum and apostrophes */
 export const splitWords = (s: string): string[] =>
     sanitizeText(s, { stripPunctuation: true, lower: true })
@@ -70,7 +52,6 @@ export const splitWords = (s: string): string[] =>
 /** Split into sentences (heuristic) */
 export const sentences = (s: string): string[] => {
     if (!s) return [];
-    // naive: split on sentence end punctuation followed by space + capital or EOS
     const parts = s
         .replace(/\r\n/g, '\n')
         .split(/(?<=[.!?])\s+(?=[A-Z0-9"“”‘’])/)
@@ -78,10 +59,6 @@ export const sentences = (s: string): string[] => {
         .filter(Boolean);
     return parts.length ? parts : [s.trim()];
 };
-
-/* --------------------
- * N-grams & shingle utils
- * -------------------- */
 
 /** Generate word n-grams */
 export const wordNGrams = (s: string, n = 2): string[] => {
@@ -221,10 +198,6 @@ export const jaroWinkler = (s1: string, s2: string, prefixScale = 0.1): number =
     return Math.min(1, j + prefix * prefixScale * (1 - j));
 };
 
-/* --------------------
- * TF / TF-IDF helpers
- * -------------------- */
-
 /** Build term frequency map (simple, token-based) */
 export const termFrequency = (text: string): TFMap => {
     const toks = splitWords(text);
@@ -276,10 +249,6 @@ export const cosineSimilarity = (a: TFMap, b: TFMap): number => {
     if (!na || !nb) return 0;
     return dot / (Math.sqrt(na) * Math.sqrt(nb));
 };
-
-/* --------------------
- * Fuzzy search helpers
- * -------------------- */
 
 export type FuzzyOptions = {
     caseSensitive?: boolean;
@@ -337,10 +306,6 @@ export const fuzzySearch = (candidates: string[], query: string, opts?: FuzzyOpt
     return filtered;
 };
 
-/* --------------------
- * Highlighting helpers
- * -------------------- */
-
 /** Highlight matches of query tokens within text by wrapping in tag strings */
 export const highlightMatches = (text: string, query: string, tagOpen = '<em>', tagClose = '</em>', opts?: { caseSensitive?: boolean }) => {
     if (!query) return text;
@@ -356,10 +321,6 @@ export const highlightMatches = (text: string, query: string, tagOpen = '<em>', 
     }
     return out;
 };
-
-/* --------------------
- * Extractors / utilities
- * -------------------- */
 
 /** Extract probable URLs from text (simple) */
 export const extractUrls = (s: string): string[] => {
@@ -378,10 +339,6 @@ export const extractMentions = (s: string): string[] => {
     const re = /@[\p{L}\p{N}_-]+/gu;
     return Array.from((s.match(re) ?? []));
 };
-
-/* --------------------
- * Text generation helpers (mock)
- * -------------------- */
 
 const SAMPLE_WORDS = [
     'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'system', 'node', 'process', 'stream',
@@ -439,10 +396,6 @@ export const avgWordsPerSentence = (text: string): number => {
     const words = splitWords(text).length;
     return words / s.length;
 };
-
-/* --------------------
- * Expose convenient index of utilities
- * -------------------- */
 
 export const textToolkitIndex = {
     // normalization
