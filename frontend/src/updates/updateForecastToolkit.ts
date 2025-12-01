@@ -1,28 +1,9 @@
 /**
  * updateForecastToolkit.ts
- *
- * Self-contained time-series toolkit for demo forecasting, smoothing,
- * anomaly detection and synthetic data generation.
- * No imports and no side-effects — safe to keep unused until integrated.
- *
- * Designed to be independent of the main application. Includes:
- *  - time-series normalization & resampling
- *  - simple forecasting models (naive, drift, linear regression, exponential smoothing)
- *  - Holt's and Holt-Winters variants
- *  - anomaly detection (z-score, IQR, MAD)
- *  - basic forecast evaluation metrics (MAE, RMSE, MAPE)
- *  - autocorrelation / seasonality estimation
- *  - synthetic generator (trend + seasonality + noise) with optional seeded RNG
- *
- * Usage: purely local helpers for experimenting with small time-series tasks.
- */
+ **/
 
 export type TimePoint = { ts: number; value: number }; // ts in ms epoch
 export type Series = TimePoint[];
-
-/* =========================
- * Small deterministic RNG (LCG) for repeatable mock generation
- * ========================= */
 
 export const seededRng = (seed = Date.now()) => {
     // simple LCG (not cryptographically strong) — deterministic for demos
@@ -32,10 +13,6 @@ export const seededRng = (seed = Date.now()) => {
         return s / 4294967296;
     };
 };
-
-/* =========================
- * Converters / normalization
- * ========================= */
 
 export const toMillis = (t: number | string | Date): number =>
     t instanceof Date ? t.getTime() : typeof t === 'string' ? new Date(t).getTime() : t;
@@ -50,10 +27,6 @@ export const normalizeSeries = (raw: Array<{ ts: Date | number | string; value: 
 
 export const cloneSeries = (s: Series): Series => s.map((p) => ({ ts: p.ts, value: p.value }));
 
-/* =========================
- * Resampling and aggregation
- * ========================= */
-
 export type Aggregate = 'mean' | 'sum' | 'first' | 'last' | 'median';
 
 const medianOf = (arr: number[]): number => {
@@ -63,11 +36,6 @@ const medianOf = (arr: number[]): number => {
     return a.length % 2 ? a[mid] : (a[mid] + a[mid + 1]) / 2;
 };
 
-/**
- * Resample a series to a fixed interval (ms). Aggregation by window:
- * - mean | sum | first | last | median
- * Output's ts represent window start.
- */
 export const resampleSeries = (series: Series, intervalMs: number, agg: Aggregate = 'mean', alignToStart = true): Series => {
     if (!series.length || intervalMs <= 0) return [];
     const src = cloneSeries(series);
@@ -82,7 +50,6 @@ export const resampleSeries = (series: Series, intervalMs: number, agg: Aggregat
             i++;
         }
         if (!bucket.length) {
-            // leave as gap or use last known value — here we skip
             continue;
         }
         let v = 0;
@@ -108,10 +75,6 @@ export const resampleSeries = (series: Series, intervalMs: number, agg: Aggregat
     return out;
 };
 
-/* =========================
- * Smoothing & filters
- * ========================= */
-
 /** Simple moving average (window size in points) */
 export const simpleMovingAverage = (values: number[], window = 3): number[] => {
     if (!values.length) return [];
@@ -126,10 +89,6 @@ export const simpleMovingAverage = (values: number[], window = 3): number[] => {
     return out;
 };
 
-/**
- * Exponential moving average (alpha in (0,1]).
- * Returns array aligned with input; undefined for indices before seed.
- */
 export const exponentialMovingAverage = (values: number[], alpha = 0.2): number[] => {
     if (!values.length) return [];
     const a = Math.max(0, Math.min(1, alpha));
@@ -143,22 +102,12 @@ export const exponentialMovingAverage = (values: number[], alpha = 0.2): number[
     return out;
 };
 
-/* =========================
- * Holt's linear (double exp smoothing)
- * ========================= */
-
-/**
- * Holt's linear method (additive trend).
- * alpha — level smoothing, beta — trend smoothing.
- * Returns fitted series and forecasts for steps.
- */
 export const holtLinear = (values: number[], alpha = 0.3, beta = 0.1, forecastSteps = 0) => {
     const n = values.length;
     if (!n) return { fitted: [] as number[], forecast: [] as number[] };
     const a = Math.max(0, Math.min(1, alpha));
     const b = Math.max(0, Math.min(1, beta));
 
-    // init level and trend using first two points
     let level = values[0];
     let trend = n > 1 ? values[1] - values[0] : 0;
     const fitted: number[] = [level];
@@ -177,15 +126,6 @@ export const holtLinear = (values: number[], alpha = 0.3, beta = 0.1, forecastSt
     return { fitted, forecast };
 };
 
-/* =========================
- * Holt-Winters (multiplicative & additive)
- * ========================= */
-
-/**
- * Holt-Winters additive seasonality.
- * seasonLen must be >= 2 and not exceed series length.
- * alpha, beta, gamma smoothing params in [0,1].
- */
 export const holtWintersAdditive = (
     values: number[],
     seasonLen: number,
@@ -201,10 +141,8 @@ export const holtWintersAdditive = (
     const B = Math.max(0, Math.min(1, beta));
     const G = Math.max(0, Math.min(1, gamma));
 
-    // initial level = average of first season
     const season0 = values.slice(0, seasonLen);
     const level0 = season0.reduce((s, v) => s + v, 0) / seasonLen;
-    // initial seasonal factors: value - level
     const seasonals = new Array(seasonLen).fill(0).map((_, i) => values[i] - level0);
 
     let level = level0;
@@ -216,16 +154,12 @@ export const holtWintersAdditive = (
         const val = values[t];
         const lastLevel = level;
         const lastSeason = seasonals[sIdx];
-        // level
         level = A * (val - lastSeason) + (1 - A) * (level + trend);
-        // trend
         trend = B * (level - lastLevel) + (1 - B) * trend;
-        // seasonal
         seasonals[sIdx] = G * (val - level) + (1 - G) * lastSeason;
         fitted.push(level + trend + seasonals[sIdx]);
     }
 
-    // forecast
     const forecast: number[] = [];
     for (let k = 1; k <= forecastSteps; k++) {
         const m = k;
@@ -236,11 +170,6 @@ export const holtWintersAdditive = (
     return { fitted, forecast };
 };
 
-/* =========================
- * Simple regression-based forecasting
- * ========================= */
-
-/** Fit least-squares line on sequence values indexed 0..n-1 */
 export const linearRegression = (values: number[]) => {
     const n = values.length;
     if (n === 0) return { slope: 0, intercept: 0, r2: 0 };
@@ -278,10 +207,6 @@ export const linearForecast = (values: number[], steps = 1) => {
     return out;
 };
 
-/* =========================
- * Forecast baselines & helpers
- * ========================= */
-
 export const naiveForecast = (values: number[], steps = 1) => {
     if (!values.length) return Array(steps).fill(0);
     const last = values[values.length - 1];
@@ -300,10 +225,6 @@ export const driftForecast = (values: number[], steps = 1) => {
     const slope = (values[n - 1] - values[0]) / (n - 1);
     return Array.from({ length: steps }, (_, k) => values[n - 1] + slope * (k + 1));
 };
-
-/* =========================
- * Forecast evaluation
- * ========================= */
 
 export const mae = (actual: number[], predicted: number[]) => {
     const n = Math.min(actual.length, predicted.length);
@@ -332,11 +253,6 @@ export const mape = (actual: number[], predicted: number[]) => {
     return (sum / n) * 100;
 };
 
-/* =========================
- * Autocorrelation & seasonality
- * ========================= */
-
-/** Autocorrelation for lag (pearson corr between original and lagged) */
 export const autocorrelation = (values: number[], lag: number): number => {
     const n = values.length;
     if (!n || lag <= 0 || lag >= n) return 0;
@@ -353,7 +269,6 @@ export const autocorrelation = (values: number[], lag: number): number => {
     return num / den;
 };
 
-/** Autocorrelation function for lags 1..maxLag */
 export const acf = (values: number[], maxLag = 30): number[] => {
     const out: number[] = [];
     const m = Math.min(maxLag, values.length - 1);
@@ -361,7 +276,6 @@ export const acf = (values: number[], maxLag = 30): number[] => {
     return out;
 };
 
-/** Estimate strongest seasonality (lag) in range [minLag, maxLag] */
 export const estimateSeasonality = (values: number[], minLag = 2, maxLag = 50): { lag: number; strength: number } => {
     const m = Math.min(maxLag, values.length - 1);
     let bestLag = 0;
@@ -376,11 +290,6 @@ export const estimateSeasonality = (values: number[], minLag = 2, maxLag = 50): 
     return { lag: bestLag, strength: Number(best.toFixed(4)) };
 };
 
-/* =========================
- * Anomaly detection
- * ========================= */
-
-/** Z-score anomalies — returns indices of points with |z| >= threshold */
 export const detectZScore = (values: number[], threshold = 3) => {
     const n = values.length;
     if (!n) return [];
@@ -396,7 +305,6 @@ export const detectZScore = (values: number[], threshold = 3) => {
     return out;
 };
 
-/** IQR-based anomalies: points outside [Q1 - k*IQR, Q3 + k*IQR] */
 export const detectIQR = (values: number[], k = 1.5) => {
     if (!values.length) return [];
     const sorted = values.slice().sort((a, b) => a - b);
@@ -410,7 +318,6 @@ export const detectIQR = (values: number[], k = 1.5) => {
     return out;
 };
 
-/** MAD (median absolute deviation) anomalies */
 export const detectMAD = (values: number[], threshold = 3) => {
     if (!values.length) return [];
     const med = medianOf(values);
@@ -425,20 +332,16 @@ export const detectMAD = (values: number[], threshold = 3) => {
     return out;
 };
 
-/* =========================
- * Synthetic series generator
- * ========================= */
-
 export type SyntheticOpts = {
     length?: number;
     freqMs?: number;
     startTime?: number | Date;
     seed?: number;
-    trend?: number; // incremental additive per point
+    trend?: number; 
     amplitude?: number;
-    period?: number; // in points
-    noise?: number; // sd
-    drift?: number; // multiplier on time
+    period?: number; 
+    noise?: number; 
+    drift?: number; 
     baseline?: number;
 };
 
@@ -460,7 +363,6 @@ export const generateSyntheticSeries = (opts?: SyntheticOpts): Series => {
     const out: Series = [];
     let driftAccum = 0;
     for (let i = 0; i < Math.max(0, Math.floor(length)); i++) {
-        // sin season + linear trend + noise + slight drift
         const seasonal = amplitude * Math.sin((2 * Math.PI * i) / Math.max(1, period));
         driftAccum += drift;
         const noiseTerm = (rng() - 0.5) * 2 * noise;
@@ -469,10 +371,6 @@ export const generateSyntheticSeries = (opts?: SyntheticOpts): Series => {
     }
     return out;
 };
-
-/* =========================
- * Train/test split and helpers
- * ========================= */
 
 export const splitSeries = (series: Series, testFractionOrCount: number) => {
     const n = series.length;
@@ -486,16 +384,8 @@ export const splitSeries = (series: Series, testFractionOrCount: number) => {
     }
 };
 
-/* =========================
- * Helpers & exports index
- * ========================= */
-
 export const seriesValues = (s: Series): number[] => s.map((p) => p.value);
 export const seriesTimestamps = (s: Series): number[] => s.map((p) => p.ts);
-
-/* =========================
- * Module index
- * ========================= */
 
 export const forecastToolkitIndex = {
     seededRng,
