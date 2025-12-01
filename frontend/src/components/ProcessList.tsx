@@ -111,7 +111,7 @@ export default function ProcessList({
     try {
       // Use Rust backend for killing processes
       await axios.post(
-        `${API_URL}/api/process/${selectedProcess.pid}/kill`
+        `${RUST_API_URL}/api/process/${selectedProcess.pid}/kill`
       );
       toast.success(`Process ${selectedProcess.name} ended successfully`, {
         id: loadingToast,
@@ -126,6 +126,15 @@ export default function ProcessList({
     }
   };
 
+  const handleSuspendProcess = async (proc: Process) => {
+    // Suspend/Resume not implemented in current backend
+    toast.error("Suspend/Resume feature not available in current version", {
+      duration: 3000,
+      icon: "⚠️",
+    });
+    return;
+  };
+
   const handleShowInfo = async (proc: Process) => {
     setSelectedProcess(proc);
     setShowInfoModal(true);
@@ -133,7 +142,7 @@ export default function ProcessList({
     try {
       // Use Rust backend for process info
       const response = await axios.get(
-        `${API_URL}/api/process/${proc.pid}/info`
+        `${RUST_API_URL}/api/process/${proc.pid}/info`
       );
       setProcessInfo(response.data);
     } catch (error: any) {

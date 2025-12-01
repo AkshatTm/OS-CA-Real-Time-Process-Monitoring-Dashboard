@@ -7,31 +7,28 @@
 
 ### ✅ Fully Supported
 
-| Platform    | Version            | Architecture          | Status          |
-| ----------- | ------------------ | --------------------- | --------------- |
-| **Windows** | 10, 11             | x64                   | ✅ Fully tested |
-| **macOS**   | 10.15+ (Catalina+) | Intel x64             | ✅ Supported    |
-| **macOS**   | 11.0+ (Big Sur+)   | Apple Silicon (ARM64) | ✅ Supported    |
-| **Linux**   | Ubuntu 20.04+      | x64                   | ✅ Supported    |
-| **Linux**   | Fedora 35+         | x64                   | ✅ Supported    |
-| **Linux**   | Arch Linux         | x64                   | ✅ Supported    |
+| Platform | Version | Architecture | Status |
+|----------|---------|--------------|--------|
+| **Windows** | 10, 11 | x64 | ✅ Fully tested |
+| **macOS** | 10.15+ (Catalina+) | Intel x64 | ✅ Supported |
+| **macOS** | 11.0+ (Big Sur+) | Apple Silicon (ARM64) | ✅ Supported |
+| **Linux** | Ubuntu 20.04+ | x64 | ✅ Supported |
+| **Linux** | Fedora 35+ | x64 | ✅ Supported |
+| **Linux** | Arch Linux | x64 | ✅ Supported |
 
 ### 🔧 Platform-Specific Dependencies
 
 #### Windows
-
 - **MSVC toolchain** (Visual Studio Build Tools) OR
 - **GNU toolchain** (`x86_64-pc-windows-gnu`)
 - **Administrator rights** for process termination
 
 #### macOS
-
 - **Xcode Command Line Tools**: `xcode-select --install`
 - **Homebrew** (optional): For installing dependencies
 - **sudo access** for process termination
 
 #### Linux
-
 - **build-essential** (Ubuntu/Debian): `sudo apt install build-essential`
 - **development tools** (Fedora): `sudo dnf groupinstall "Development Tools"`
 - **base-devel** (Arch): `sudo pacman -S base-devel`
@@ -247,21 +244,21 @@ npm run dev
 
 ### GPU Monitoring
 
-| Platform    | GPU Support    | Requirements                                                                             |
-| ----------- | -------------- | ---------------------------------------------------------------------------------------- |
-| **Windows** | ✅ NVIDIA GPUs | NVIDIA drivers + CUDA toolkit                                                            |
-| **macOS**   | ❌ Limited     | NVIDIA GPUs not supported on Apple Silicon<br>Intel Macs: NVIDIA drivers (if NVIDIA GPU) |
-| **Linux**   | ✅ NVIDIA GPUs | NVIDIA drivers (proprietary or nouveau)                                                  |
+| Platform | GPU Support | Requirements |
+|----------|-------------|--------------|
+| **Windows** | ✅ NVIDIA GPUs | NVIDIA drivers + CUDA toolkit |
+| **macOS** | ❌ Limited | NVIDIA GPUs not supported on Apple Silicon<br>Intel Macs: NVIDIA drivers (if NVIDIA GPU) |
+| **Linux** | ✅ NVIDIA GPUs | NVIDIA drivers (proprietary or nouveau) |
 
 **Note:** AMD and Intel GPU monitoring not currently supported on any platform.
 
 ### Process Termination
 
-| Platform    | Requirement          | Command               |
-| ----------- | -------------------- | --------------------- |
-| **Windows** | Administrator rights | Run as Admin          |
-| **macOS**   | sudo access          | `sudo ./start_all.sh` |
-| **Linux**   | sudo access          | `sudo ./start_all.sh` |
+| Platform | Requirement | Command |
+|----------|-------------|---------|
+| **Windows** | Administrator rights | Run as Admin |
+| **macOS** | sudo access | `sudo ./start_all.sh` |
+| **Linux** | sudo access | `sudo ./start_all.sh` |
 
 ---
 
@@ -270,12 +267,10 @@ npm run dev
 ### Windows
 
 **Issue:** "Rust backend won't start"
-
 - **Solution:** Run `START_RUST_ADMIN.bat` as Administrator
 - Right-click → "Run as administrator"
 
 **Issue:** Port already in use
-
 ```powershell
 # Find process on port 8000
 netstat -ano | findstr :8000
@@ -286,20 +281,16 @@ taskkill /F /PID <PID>
 ### macOS
 
 **Issue:** "Permission denied" when killing processes
-
 - **Solution:** Run with sudo: `sudo ./start_all.sh`
 
 **Issue:** Port already in use
-
 ```bash
 # Find and kill process on port 8000
 lsof -ti:8000 | xargs kill -9
 ```
 
 **Issue:** "xcrun: error: invalid active developer path"
-
 - **Solution:** Install Xcode Command Line Tools
-
 ```bash
 xcode-select --install
 ```
@@ -307,20 +298,16 @@ xcode-select --install
 ### Linux
 
 **Issue:** "Permission denied" when killing processes
-
 - **Solution:** Run with sudo: `sudo ./start_all.sh`
 
 **Issue:** Port already in use
-
 ```bash
 # Find and kill process on port 8000
 lsof -ti:8000 | xargs kill -9
 ```
 
 **Issue:** "error: linker 'cc' not found"
-
 - **Solution:** Install build tools
-
 ```bash
 # Ubuntu/Debian
 sudo apt install build-essential
@@ -338,30 +325,27 @@ sudo pacman -S base-devel
 
 ### Backend Libraries (Cross-Platform)
 
-| Library                 | Platform Support           | Purpose                    |
-| ----------------------- | -------------------------- | -------------------------- |
-| **sysinfo** (Rust)      | Windows, macOS, Linux      | System stats               |
-| **psutil** (Python)     | Windows, macOS, Linux, BSD | Process monitoring         |
-| **nvml-wrapper** (Rust) | Windows, Linux             | NVIDIA GPU (macOS limited) |
-| **Axum** (Rust)         | All platforms              | Web framework              |
-| **FastAPI** (Python)    | All platforms              | Web framework              |
+| Library | Platform Support | Purpose |
+|---------|-----------------|---------|
+| **sysinfo** (Rust) | Windows, macOS, Linux | System stats |
+| **psutil** (Python) | Windows, macOS, Linux, BSD | Process monitoring |
+| **nvml-wrapper** (Rust) | Windows, Linux | NVIDIA GPU (macOS limited) |
+| **Axum** (Rust) | All platforms | Web framework |
+| **FastAPI** (Python) | All platforms | Web framework |
 
 ### Key Differences by Platform
 
 #### CPU Monitoring
-
 - **Windows:** Uses Windows Performance Counters
 - **macOS:** Uses sysctl and mach kernel
 - **Linux:** Reads from /proc/stat
 
 #### Process Information
-
 - **Windows:** Uses Windows API (CreateToolhelp32Snapshot)
 - **macOS:** Uses BSD sysctl
 - **Linux:** Reads from /proc/[pid]/
 
 #### Memory Information
-
 - **Windows:** GlobalMemoryStatusEx API
 - **macOS:** host_statistics64()
 - **Linux:** /proc/meminfo
@@ -370,31 +354,28 @@ sudo pacman -S base-devel
 
 ## Performance by Platform
 
-| Platform          | Rust Response Time | Python Response Time | Notes                  |
-| ----------------- | ------------------ | -------------------- | ---------------------- |
-| **Windows**       | 5-10ms             | 50-100ms             | Best tested            |
-| **macOS (Intel)** | 8-15ms             | 60-120ms             | Good performance       |
-| **macOS (ARM64)** | 6-12ms             | 55-110ms             | Native ARM compilation |
-| **Linux**         | 5-10ms             | 50-100ms             | Excellent performance  |
+| Platform | Rust Response Time | Python Response Time | Notes |
+|----------|-------------------|---------------------|--------|
+| **Windows** | 5-10ms | 50-100ms | Best tested |
+| **macOS (Intel)** | 8-15ms | 60-120ms | Good performance |
+| **macOS (ARM64)** | 6-12ms | 55-110ms | Native ARM compilation |
+| **Linux** | 5-10ms | 50-100ms | Excellent performance |
 
 ---
 
 ## Known Platform Limitations
 
 ### macOS
-
 - ⚠️ NVIDIA GPU monitoring not available on Apple Silicon
 - ⚠️ Some process information requires sudo (e.g., process paths)
 - ⚠️ Sandbox restrictions may limit process termination
 
 ### Linux
-
 - ⚠️ Some distributions require additional permissions for process monitoring
 - ⚠️ GPU support depends on driver installation (nouveau vs proprietary)
 - ⚠️ Wayland vs X11 may affect some features
 
 ### Windows
-
 - ⚠️ Windows Defender may flag the Rust binary (add exclusion)
 - ⚠️ Some antivirus software may block process termination
 - ⚠️ UWP apps may not be killable via this tool
@@ -403,22 +384,21 @@ sudo pacman -S base-devel
 
 ## Testing Status
 
-| Platform                   | Testing Status        | Tested Features          |
-| -------------------------- | --------------------- | ------------------------ |
-| **Windows 11**             | ✅ Extensively tested | All features working     |
-| **Windows 10**             | ✅ Tested             | All features working     |
-| **macOS Monterey (Intel)** | ⚠️ Community tested   | Basic features confirmed |
-| **macOS Ventura (ARM64)**  | ⚠️ Community tested   | Basic features confirmed |
-| **Ubuntu 22.04**           | ⚠️ Community tested   | All features working     |
-| **Fedora 38**              | ⚠️ Basic testing      | Core features working    |
-| **Arch Linux**             | ⚠️ Basic testing      | Core features working    |
+| Platform | Testing Status | Tested Features |
+|----------|---------------|-----------------|
+| **Windows 11** | ✅ Extensively tested | All features working |
+| **Windows 10** | ✅ Tested | All features working |
+| **macOS Monterey (Intel)** | ⚠️ Community tested | Basic features confirmed |
+| **macOS Ventura (ARM64)** | ⚠️ Community tested | Basic features confirmed |
+| **Ubuntu 22.04** | ⚠️ Community tested | All features working |
+| **Fedora 38** | ⚠️ Basic testing | Core features working |
+| **Arch Linux** | ⚠️ Basic testing | Core features working |
 
 ---
 
 ## Contributing
 
 If you're using Task Manager Pro on macOS or Linux, please:
-
 1. Report any platform-specific issues
 2. Share performance benchmarks
 3. Test GPU monitoring (if you have NVIDIA GPU)

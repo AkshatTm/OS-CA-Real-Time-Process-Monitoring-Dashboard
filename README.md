@@ -61,12 +61,21 @@ A high-performance, modern system monitoring dashboard built with a **hybrid arc
 ## 🎯 Problem Statement & Solution
 
 ### 📝 Original Requirements
-
 **Create a graphical dashboard that displays real-time information about process states, CPU usage, and memory consumption. The tool should allow administrators to manage processes efficiently and identify potential issues promptly.**
 
 ### ✅ How We Solved It
-
 Our hybrid architecture solution exceeds the original requirements:
+
+| Requirement | Our Implementation | Enhancement |
+|-------------|-------------------|-------------|
+| **Real-time process information** | ✅ 2-second refresh with dual backends | Added GPU monitoring, disk/network stats |
+| **Process states display** | ✅ Complete process status tracking | Color-coded status indicators |
+| **CPU usage monitoring** | ✅ Accurate per-process CPU percentages | Overall + per-core visualization |
+| **Memory consumption tracking** | ✅ Real-time memory usage | Memory percentage + absolute values |
+| **Administrator management** | ✅ Process termination with admin rights | Process details, application grouping |
+| **Issue identification** | ✅ Sort by CPU/Memory, search/filter | Performance graphs, trend analysis |
+
+**Innovation:** Hybrid Rust + Python architecture for optimal speed + accuracy balance.
 
 | Requirement                       | Our Implementation                       | Enhancement                              |
 | --------------------------------- | ---------------------------------------- | ---------------------------------------- |
@@ -76,10 +85,6 @@ Our hybrid architecture solution exceeds the original requirements:
 | **Memory consumption tracking**   | ✅ Real-time memory usage                | Memory percentage + absolute values      |
 | **Administrator management**      | ✅ Process termination with admin rights | Process details, application grouping    |
 | **Issue identification**          | ✅ Sort by CPU/Memory, search/filter     | Performance graphs, trend analysis       |
-
-**Innovation:** Hybrid Rust + Python architecture for optimal speed + accuracy balance.
-
----
 
 ## 🛠️ Technology Stack
 
@@ -108,13 +113,11 @@ Our hybrid architecture solution exceeds the original requirements:
 ### One-Command Startup
 
 **Windows:**
-
 ```bash
 START_ALL.bat
 ```
 
 **macOS/Linux:**
-
 ```bash
 chmod +x start_all.sh
 ./start_all.sh
@@ -246,14 +249,14 @@ Use the **Apps** tab to:
 
 ### Common Issues
 
-| Issue                    | Solution                                                                                                                        |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Issue                    | Solution                                                                    |
+| ------------------------ | --------------------------------------------------------------------------- |
 | Port already in use      | **Windows:** `netstat -ano \| findstr :8000` then `taskkill /F /PID <PID>`<br>**macOS/Linux:** `lsof -ti:8000 \| xargs kill -9` |
-| Rust backend won't start | **Windows:** Run `START_RUST_ADMIN.bat`<br>**macOS/Linux:** `sudo cargo run --release`                                          |
-| Python backend crashes   | Check it's using `host="127.0.0.1"` not `"0.0.0.0"`                                                                             |
-| Frontend stuck loading   | Check both backends are running                                                                                                 |
-| Process killing fails    | **All platforms:** Backend must run with admin/sudo privileges                                                                  |
-| GPU not detected         | Only NVIDIA GPUs supported (all platforms), install drivers                                                                     |
+| Rust backend won't start | **Windows:** Run `START_RUST_ADMIN.bat`<br>**macOS/Linux:** `sudo cargo run --release` |
+| Python backend crashes   | Check it's using `host="127.0.0.1"` not `"0.0.0.0"`                         |
+| Frontend stuck loading   | Check both backends are running                                             |
+| Process killing fails    | **All platforms:** Backend must run with admin/sudo privileges              |
+| GPU not detected         | Only NVIDIA GPUs supported (all platforms), install drivers                 |
 
 **See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for complete guide.**
 
@@ -349,13 +352,11 @@ This project was developed as an **Operating Systems course assignment** and dem
 ## 🎓 Academic Project Information
 
 ### 👥 Team Members
-
 - **Akshat Tomar**
-- **Kulvinder**
+- **Kulvinder**  
 - **Priyanshu Kamal**
 
 ### 📋 Project Details
-
 **Title:** Real-Time Process Monitoring Dashboard
 
 **Problem Statement:**  

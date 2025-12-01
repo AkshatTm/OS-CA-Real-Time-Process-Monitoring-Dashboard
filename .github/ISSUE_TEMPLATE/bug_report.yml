@@ -1,0 +1,144 @@
+name: Bug Report
+description: Report a bug to help us improve Task Manager Pro
+title: "[BUG] "
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please fill out the sections below to help us fix the issue quickly.
+        
+        **Before submitting**: Please search existing issues to avoid duplicates.
+        
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Which version of Task Manager Pro are you using?
+      placeholder: "e.g., v2.0, latest from rust-implementation branch"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you using?
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS (limited support)
+        - Linux (limited support)
+        - Other (please specify in description)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of the system is affected?
+      options:
+        - Frontend (React UI)
+        - Rust Backend (Port 8000)
+        - Python Backend (Port 8001)
+        - Installation/Setup
+        - Documentation
+        - Performance
+        - Other
+    validations:
+      required: true
+      
+  - type: textarea
+    id: summary
+    attributes:
+      label: Bug Summary
+      description: A clear and concise description of the bug
+      placeholder: "Describe what happened and what you expected to happen"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Step-by-step instructions to reproduce the bug
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+      
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should have happened?
+      placeholder: "Describe the expected behavior"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: "Describe what actually happened"
+    validations:
+      required: true
+      
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Logs
+      description: Any relevant error messages or logs
+      placeholder: |
+        Paste error messages here:
+        - Browser console errors (F12)
+        - Rust backend terminal output
+        - Python backend terminal output
+      render: shell
+      
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain the problem
+      placeholder: "Drag and drop screenshots here or paste image URLs"
+      
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System Information
+      description: Additional system details
+      placeholder: |
+        - Browser: Chrome 120.x, Firefox 121.x, etc.
+        - RAM: 16GB
+        - CPU: Intel i7-12700K, AMD Ryzen 5 5600X, etc.
+        - GPU: NVIDIA RTX 3080, AMD RX 6800 XT, etc.
+        - Admin Rights: Yes/No
+      
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information that might help
+      placeholder: "Add any other context about the problem here"
+      
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to avoid duplicates
+          required: true
+        - label: I have tested this with the latest version
+          required: true
+        - label: I have included all relevant information
+          required: true
+        - label: I am willing to test a fix if provided
+          required: false

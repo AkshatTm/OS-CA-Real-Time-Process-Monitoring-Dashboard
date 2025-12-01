@@ -228,13 +228,6 @@ async def get_apps():
 
 if __name__ == "__main__":
     import uvicorn
-    import sys
-    
-    # Fix for Windows + Python 3.12 asyncio event loop issue
-    if sys.platform == 'win32':
-        import asyncio
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    
     print("🚀 Task Manager Pro - Python CPU Backend")
     print("📡 API: http://localhost:8001")
     print("🎯 Purpose: Accurate CPU monitoring for processes and apps")
