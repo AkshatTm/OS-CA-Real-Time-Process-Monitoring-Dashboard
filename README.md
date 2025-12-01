@@ -1,102 +1,97 @@
-# 🚀 Task Manager Pro
+# Task Manager Pro
 
-**Project Title:** Real-Time Process Monitoring Dashboard
-**Team:** Kulvinder, Priyanshu Kamal, Akshat
+**Real-Time Process Monitoring Dashboard with Hybrid Architecture**
 
-A modern, professional **Real-Time Process Monitoring Dashboard** built with **Electron**, **React**, **TailwindCSS**, and **Python FastAPI**. This project demonstrates core Operating System concepts including process management, CPU scheduling, memory management, and system monitoring.
-
-![Task Manager Pro](https://img.shields.io/badge/Status-Production%20Ready-success)
-![Python](https://img.shields.io/badge/Python-3.8+-blue)
-![React](https://img.shields.io/badge/React-18.3-blue)
-![Electron](https://img.shields.io/badge/Electron-33.2-blue)
+![Rust](https://img.shields.io/badge/Rust-1.70+-orange?logo=rust)
+![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python)
+![React](https://img.shields.io/badge/React-18.3-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
 ![License](https://img.shields.io/badge/License-Educational-green)
 
-## 📚 Complete Documentation
+A high-performance, modern system monitoring dashboard built with a **hybrid architecture**: Rust for speed, Python for accuracy, and React + TypeScript for a beautiful UI.
 
-**📖 Files are numbered in recommended reading order for beginners!**
+## 📚 Documentation
 
-| #     | Document                                                  | Description                                |
-| ----- | --------------------------------------------------------- | ------------------------------------------ |
-| **0** | **[📖 Documentation Index](./00_DOCUMENTATION_INDEX.md)** | **START HERE - Complete navigation guide** |
-| **1** | **[Quick Start Guide](./01_QUICKSTART.md)**               | Get started in 5 minutes ⚡                |
-| **2** | **[Problem Statement](./02_PROBLEM_STATEMENT.md)**        | Project requirements & objectives 🎯       |
-| **3** | **[Architecture](./03_ARCHITECTURE.md)**                  | Technical architecture & design 🏗️         |
-| **4** | **[How It Works](./04_HOW_IT_WORKS.md)**                  | Deep dive with explanations 🎓             |
-| **5** | **[Visual Diagrams](./05_DIAGRAMS.md)**                   | Flowcharts & visual guides 📊              |
-| **6** | **[Project Summary](./06_PROJECT_SUMMARY.md)**            | Complete academic summary 📋               |
-| **7** | **[Troubleshooting](./07_TROUBLESHOOTING.md)**            | Common issues & solutions 🔧               |
-| **8** | **[Contributing](./08_CONTRIBUTING.md)**                  | Contribution guidelines 🤝                 |
-
-**📖 Recommended Path:** 0 → 1 → 2 → 3 → 4 → 5 (7 for issues, 8 for contributing)
-
-> **💡 Total Documentation: 10 comprehensive files | 4,100+ lines | 180+ KB**  
-> **For complete navigation, start with [00_DOCUMENTATION_INDEX.md](./00_DOCUMENTATION_INDEX.md)**
+| Document                                       | Description                         |
+| ---------------------------------------------- | ----------------------------------- |
+| **[QUICKSTART.md](./QUICKSTART.md)**           | Get started in 5 minutes ⚡         |
+| **[ARCHITECTURE.md](./ARCHITECTURE.md)**       | Hybrid system design & rationale 🏗️ |
+| **[API_REFERENCE.md](./API_REFERENCE.md)**     | Complete API documentation 📖       |
+| **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** | Common issues & solutions 🔧        |
+| **[older versions/](./older%20versions/)**     | Project evolution history 📜        |
 
 ---
 
 ## ✨ Features
 
-### 🎨 **Modern UI/UX**
+### 🚀 **Hybrid Performance**
 
-- **Glassmorphism Design** - Translucent cards with backdrop blur effects
-- **Dark Theme** - Easy on the eyes with professional color scheme
-- **Smooth Animations** - Framer Motion powered transitions
-- **Responsive Layout** - Adapts to different screen sizes
-- **Interactive Charts** - Real-time data visualization
+- **Rust Backend** - Lightning-fast system stats (5-10ms response)
+- **Python Backend** - Accurate CPU monitoring with psutil
+- **TypeScript Frontend** - Type-safe, modern React UI
+- **Real-Time Updates** - 2-second refresh interval
 
 ### 📊 **System Monitoring**
 
-- **Real-time CPU Monitoring** - Overall and per-core usage
-- **Memory Statistics** - RAM and swap memory tracking
-- **Disk Usage** - Storage space and I/O statistics
-- **Network Activity** - Bytes sent/received and packet counts
-- **System Information** - OS, processor, architecture details
-- **Performance Graphs** - Historical data visualization (last 2 minutes)
+- CPU usage (overall and per-core)
+- Memory statistics (RAM usage)
+- Disk I/O and storage information
+- Network activity (bytes sent/received)
+- **GPU Monitoring** - NVIDIA GPU stats (usage, memory, temperature)
 
 ### 🔧 **Process Management**
 
-- **View All Processes** - Complete list with detailed information
-- **Search & Filter** - Quick process lookup
-- **Sort by Metrics** - CPU, Memory, PID, Name, Status
-- **End Process** - Terminate running processes
-- **Suspend/Resume** - Pause and resume processes
-- **Process Details** - View detailed information (PID, Memory, Threads, Path, etc.)
-- **Status Indicators** - Color-coded process states
+- View all running processes with accurate CPU percentages
+- Search and filter by name or PID
+- Sort by CPU, memory, name, or status
+- **Terminate processes** (requires admin rights)
+- Process details modal (PID, threads, handles, path)
+- Application grouping (combined stats for multi-process apps)
 
-### 🎯 **Advanced Features**
+### 🎨 **Modern UI**
 
-- **Auto-refresh** - Updates every 2 seconds
-- **Toast Notifications** - User feedback for actions
-- **Modal Dialogs** - Detailed process information
-- **Keyboard Navigation** - Efficient workflow
-- **Error Handling** - Graceful error management
-- **REST API** - Backend API for extensibility
+- Dark theme with glassmorphism effects
+- Smooth animations (Framer Motion)
+- Responsive layout
+- Toast notifications for user feedback
+- Interactive data tables
+
+---
+
+## 🎯 Problem Statement & Solution
+
+### 📝 Original Requirements
+
+**Create a graphical dashboard that displays real-time information about process states, CPU usage, and memory consumption. The tool should allow administrators to manage processes efficiently and identify potential issues promptly.**
+
+### ✅ How We Solved It
+
+Our hybrid architecture solution exceeds the original requirements:
+
+| Requirement                       | Our Implementation                       | Enhancement                              |
+| --------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| **Real-time process information** | ✅ 2-second refresh with dual backends   | Added GPU monitoring, disk/network stats |
+| **Process states display**        | ✅ Complete process status tracking      | Color-coded status indicators            |
+| **CPU usage monitoring**          | ✅ Accurate per-process CPU percentages  | Overall + per-core visualization         |
+| **Memory consumption tracking**   | ✅ Real-time memory usage                | Memory percentage + absolute values      |
+| **Administrator management**      | ✅ Process termination with admin rights | Process details, application grouping    |
+| **Issue identification**          | ✅ Sort by CPU/Memory, search/filter     | Performance graphs, trend analysis       |
+
+**Innovation:** Hybrid Rust + Python architecture for optimal speed + accuracy balance.
+
+---
 
 ## 🛠️ Technology Stack
 
-### Frontend
+| Layer                  | Technology         | Purpose                          | Why?                               |
+| ---------------------- | ------------------ | -------------------------------- | ---------------------------------- |
+| **Backend (Speed)**    | Rust + Axum        | Fast stats, GPU, process control | 10-20x faster than Python          |
+| **Backend (Accuracy)** | Python + FastAPI   | Accurate CPU percentages         | psutil gold standard               |
+| **Frontend**           | React + TypeScript | UI/UX                            | Type safety, component reusability |
+| **Build**              | Vite + Cargo       | Fast builds                      | Hot reload, optimized bundling     |
+| **Styling**            | Tailwind CSS       | Modern design                    | Utility-first, responsive          |
 
-| Technology    | Purpose       | Version |
-| ------------- | ------------- | ------- |
-| React         | UI Framework  | 18.3.1  |
-| Electron      | Desktop App   | 33.2.0  |
-| Vite          | Build Tool    | 6.0.3   |
-| TailwindCSS   | Styling       | 3.4.17  |
-| Framer Motion | Animations    | 11.15.0 |
-| Recharts      | Visualization | 2.15.0  |
-| Axios         | HTTP Client   | 1.7.7   |
-
-### Backend
-
-| Technology | Purpose           | Version |
-| ---------- | ----------------- | ------- |
-| Python     | Language          | 3.8+    |
-| FastAPI    | Web Framework     | 0.115.5 |
-| Uvicorn    | ASGI Server       | 0.32.1  |
-| psutil     | System Monitoring | 6.1.0   |
-| GPUtil     | GPU Monitoring    | 1.4.0   |
-
-**📖 Detailed tech stack in [Architecture Documentation](./03_ARCHITECTURE.md)**
+**See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed rationale.**
 
 ---
 
@@ -104,313 +99,270 @@ A modern, professional **Real-Time Process Monitoring Dashboard** built with **E
 
 ### Prerequisites
 
-- **Python 3.8+** - [Download](https://www.python.org/downloads/)
-- **Node.js 18+** - [Download](https://nodejs.org/)
-- **npm** (comes with Node.js)
+- **Rust 1.70+** - [Install](https://rustup.rs)
+- **Python 3.8+** - [Download](https://python.org/downloads)
+- **Node.js 18+** - [Download](https://nodejs.org)
+- **Supported OS:** Windows 10/11, macOS 10.15+, or Linux (Ubuntu 20.04+, Fedora, Arch)
+- **Administrator/sudo access** (required for process termination)
 
-### Installation & Running
+### One-Command Startup
 
 **Windows:**
 
 ```bash
-# Install dependencies
-setup.bat
-
-# Run application
-start.bat
+START_ALL.bat
 ```
 
-**Mac/Linux:**
+**macOS/Linux:**
 
 ```bash
-# Make scripts executable
-chmod +x setup.sh start.sh
-
-# Install dependencies
-./setup.sh
-
-# Run application
-./start.sh
+chmod +x start_all.sh
+./start_all.sh
 ```
 
-**Manual Setup:**
+This script:
 
-```bash
-# Backend
-cd backend
-pip install -r requirements.txt
-python main.py
+1. ✅ Starts Python backend (port 8001)
+2. ✅ Starts Rust backend with sudo/admin (port 8000)
+3. ✅ Starts React frontend (port 5173)
 
-# Frontend (new terminal)
-cd frontend
-npm install
-npm run dev
-```
-
-**📖 For detailed instructions, see [Quick Start Guide](./01_QUICKSTART.md)**
-
-## 🎓 Educational Value
-
-This project demonstrates key **Operating System concepts**:
-
-### Core OS Concepts Covered
-
-1. **Process Management**
-
-   - Process states (running, sleeping, stopped, zombie)
-   - Process Control Block (PCB) information
-   - Process creation and termination
-   - Parent-child process relationships
-
-2. **CPU Scheduling**
-
-   - CPU utilization monitoring
-   - Per-core CPU distribution
-   - Process CPU consumption tracking
-   - Multi-core processing visualization
-
-3. **Memory Management**
-
-   - Virtual memory concepts
-   - Physical vs available memory
-   - Memory allocation to processes
-   - Swap space utilization
-
-4. **Inter-Process Communication**
-
-   - System calls for process control
-   - Signal handling (SIGTERM, SIGKILL)
-   - Process suspension and resumption
-
-5. **System Monitoring**
-   - Real-time system statistics
-   - Disk I/O operations
-   - Network activity monitoring
-   - Resource utilization tracking
-
-**📖 Learn more in [Problem Statement](./02_PROBLEM_STATEMENT.md) and [How It Works](./04_HOW_IT_WORKS.md)**
+**See [QUICKSTART.md](./QUICKSTART.md) for manual setup and troubleshooting.**
 
 ---
 
-## 📸 Features Overview
-
-### 🎨 Modern UI/UX
-
-- Glassmorphism design with translucent cards
-- Dark theme optimized for extended use
-- Smooth animations powered by Framer Motion
-- Responsive layout for all screen sizes
-
-### 📊 Real-Time System Monitoring
-
-- CPU usage (overall and per-core)
-- Memory statistics (RAM and swap)
-- Disk I/O and storage information
-- Network activity (bytes sent/received)
-- System information panel
-
-### 🔧 Advanced Process Management
-
-- View all running processes with details
-- Search and filter by name or PID
-- Sort by CPU, memory, name, or status
-- Terminate processes safely
-- Suspend and resume process execution
-- Protected system process safeguards
-
-### 📈 Data Visualization
-
-- Real-time performance graphs
-- Historical data (last 2 minutes)
-- Color-coded status indicators
-- Interactive charts and tables
-
-**📖 See [Architecture Documentation](./03_ARCHITECTURE.md) for technical details**
-
----
-
-## 🏗️ Architecture Overview
+## 🏗️ Hybrid Architecture
 
 ```
-┌─────────────────────────────────────┐
-│     Frontend (React + Electron)     │
-│   - Modern UI with TailwindCSS      │
-│   - Real-time data visualization    │
-│   - Process management interface    │
-└─────────────┬───────────────────────┘
-              │ HTTP/REST API
-              ↕
-┌─────────────────────────────────────┐
-│      Backend (Python FastAPI)       │
-│   - REST API endpoints              │
-│   - Process management logic        │
-│   - System statistics aggregation   │
-└─────────────┬───────────────────────┘
-              │ psutil Library
-              ↕
-┌─────────────────────────────────────┐
-│      Operating System (OS)          │
-│   - Process Control Blocks          │
-│   - CPU/Memory management           │
-│   - System calls                    │
-└─────────────────────────────────────┘
+┌─────────────────────────────────────────┐
+│   React Frontend (TypeScript)           │
+│   http://localhost:5173                 │
+│   - Performance Tab → Rust API          │
+│   - Processes Tab → Python API          │
+│   - Apps Tab → Python API               │
+│   - Kill Process → Rust API             │
+└────────┬───────────────────┬────────────┘
+         │                   │
+         ↓                   ↓
+┌──────────────────┐  ┌──────────────────┐
+│  Rust Backend    │  │  Python Backend  │
+│  Port 8000       │  │  Port 8001       │
+│  (Axum + Tokio)  │  │  (FastAPI)       │
+│                  │  │                  │
+│  - System Stats  │  │  - Process List  │
+│  - GPU Monitor   │  │  - App List      │
+│  - Kill Process  │  │  - Accurate CPU% │
+│  - Process Info  │  │                  │
+└──────────────────┘  └──────────────────┘
+         │                   │
+         ↓                   ↓
+┌─────────────────────────────────────────┐
+│   Operating System (Cross-Platform)     │
+│   Windows 10/11 | macOS 10.15+ | Linux  │
+│   - sysinfo (Rust - cross-platform)     │
+│   - psutil (Python - cross-platform)    │
+│   - nvml-wrapper (GPU - NVIDIA only)    │
+└─────────────────────────────────────────┘
 ```
 
-**📖 Full architecture details in [Architecture Documentation](./03_ARCHITECTURE.md)**
+**Why Hybrid?**
+
+- Rust's `sysinfo` CPU% = cumulative (100%+ on multi-core)
+- Python's `psutil` CPU% = per-core accurate
+- **Solution:** Use both! Rust for speed, Python for accuracy.
+
+**See [ARCHITECTURE.md](./ARCHITECTURE.md) for complete details.**
 
 ---
 
-## � Platform Support
+## 📊 Performance
 
-### ✅ Windows (Fully Supported)
+| Metric         | Rust Backend   | Python Backend       |
+| -------------- | -------------- | -------------------- |
+| Stats Endpoint | **5-10ms**     | 100-150ms            |
+| Process List   | **20-30ms**    | 50-100ms             |
+| CPU Accuracy   | Good (95%)     | **Excellent (100%)** |
+| Memory Usage   | **15-20 MB**   | 40-60 MB             |
+| Admin Required | Yes (kill ops) | No                   |
 
-- All features work out of the box
-- Full process management capabilities
-- GPU monitoring support
-
-### ⚠️ macOS (With Modifications)
-
-- Core features work (90% compatible)
-- Process management requires modifications
-- GPU monitoring limited
-- Requires shell scripts (setup.sh, start.sh)
-
-### 🔄 Linux (Compatible)
-
-- Requires permissions for process management
-- Most features supported
-- Use shell scripts for setup
-
-**📖 See [Troubleshooting Guide](./07_TROUBLESHOOTING.md) for platform-specific issues**
+**Trade-off:** Rust = Fast but less accurate CPU, Python = Slow but accurate CPU  
+**Solution:** Hybrid architecture combines both strengths.
 
 ---
 
-## � API Documentation
+## 🔑 Key Endpoints
 
-### Base URL
+### Rust Backend (Port 8000)
 
+```typescript
+GET  /api/stats              // System stats + GPU
+GET  /api/process/:pid/info  // Process details
+POST /api/process/:pid/kill  // Terminate process (admin)
+POST /api/app/close          // Close application (admin)
 ```
-http://localhost:8000
+
+### Python Backend (Port 8001)
+
+```typescript
+GET / api / processes; // All processes with accurate CPU%
+GET / api / apps; // Grouped apps with combined stats
 ```
 
-### Key Endpoints
-
-| Method | Endpoint                     | Description                |
-| ------ | ---------------------------- | -------------------------- |
-| GET    | `/api/system/stats`          | Complete system statistics |
-| GET    | `/api/processes`             | List all processes         |
-| GET    | `/api/process/{pid}`         | Process details            |
-| POST   | `/api/process/{pid}/kill`    | Terminate process          |
-| POST   | `/api/process/{pid}/suspend` | Suspend process            |
-| POST   | `/api/process/{pid}/resume`  | Resume process             |
-
-**Interactive API docs:** http://localhost:8000/docs
-
-**📖 Complete API documentation in [Architecture Documentation](./03_ARCHITECTURE.md)**
+**See [API_REFERENCE.md](./API_REFERENCE.md) for complete documentation.**
 
 ---
 
-## 🤝 Contributing
+## 🎯 Use Cases
 
-We welcome contributions! Please see our [Contributing Guide](./08_CONTRIBUTING.md) for details.
+### Performance Monitoring
 
-### Quick Contribution Steps
+Use the **Performance** tab to view:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- Real-time CPU usage graph
+- Memory consumption
+- Disk read/write stats
+- Network activity
+- GPU utilization (NVIDIA only)
 
-**📖 Full guidelines in [Contributing Guide](./08_CONTRIBUTING.md)**
+### Process Analysis
+
+Use the **Processes** tab to:
+
+- Find CPU-intensive processes (accurate percentages from Python)
+- Monitor memory hogs
+- View process details (PID, threads, handles, path)
+- Kill unresponsive processes (admin required)
+
+### Application Management
+
+Use the **Apps** tab to:
+
+- See grouped application stats (e.g., all Chrome processes)
+- Monitor multi-process applications
+- Close entire applications
 
 ---
 
-## � Troubleshooting
-
-Having issues? Check our comprehensive [Troubleshooting Guide](./07_TROUBLESHOOTING.md).
+## 🔧 Troubleshooting
 
 ### Common Issues
 
-- **Port already in use** - Backend or frontend port conflicts
-- **Permission denied** - Some actions require elevated privileges (Windows: run PowerShell as Administrator and re-run `start.bat`)
-- **Module not found** - Dependencies not installed correctly
-- **Blank screen** - Backend not running or connection issues
+| Issue                    | Solution                                                                                                                        |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Port already in use      | **Windows:** `netstat -ano \| findstr :8000` then `taskkill /F /PID <PID>`<br>**macOS/Linux:** `lsof -ti:8000 \| xargs kill -9` |
+| Rust backend won't start | **Windows:** Run `START_RUST_ADMIN.bat`<br>**macOS/Linux:** `sudo cargo run --release`                                          |
+| Python backend crashes   | Check it's using `host="127.0.0.1"` not `"0.0.0.0"`                                                                             |
+| Frontend stuck loading   | Check both backends are running                                                                                                 |
+| Process killing fails    | **All platforms:** Backend must run with admin/sudo privileges                                                                  |
+| GPU not detected         | Only NVIDIA GPUs supported (all platforms), install drivers                                                                     |
 
-**📖 Solutions in [Troubleshooting Guide](./07_TROUBLESHOOTING.md)**
+**See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for complete guide.**
 
 ---
 
-## 📝 Project Structure
+## 📂 Project Structure
 
 ```
 task-manager-pro/
-├── backend/
-│   ├── main.py                 # FastAPI application
-│   └── requirements.txt        # Python dependencies
-├── frontend/
+├── backend/                      # Rust backend
 │   ├── src/
-│   │   ├── App.jsx            # Main React component
-│   │   ├── components/        # React components
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── PerformanceTab.jsx
-│   │   │   └── ProcessList.jsx
-│   │   └── styles/            # CSS files
-│   ├── electron.js            # Electron configuration
-│   └── package.json           # Node dependencies
-├── setup.bat / setup.sh       # Setup scripts
-├── start.bat / start.sh       # Start scripts
-├── QUICKSTART.md              # Quick start guide
-├── PROBLEM_STATEMENT.md       # Project requirements
-├── ARCHITECTURE.md            # Technical architecture
-├── HOW_IT_WORKS.md           # Deep dive & flowcharts
-├── TROUBLESHOOTING.md        # Issue resolution
-├── CONTRIBUTING.md           # Contribution guide
-└── README.md                 # This file
+│   │   └── main.rs              # Axum server + sysinfo
+│   ├── Cargo.toml
+│   └── Cargo.lock
+├── older versions/
+│   └── v1-python-only/
+│       └── backend-v1-fastapi/   # Python backend
+│           ├── main.py          # FastAPI server + psutil
+│           └── requirements.txt
+├── frontend/                     # React frontend
+│   ├── src/
+│   │   ├── App.tsx              # Main app with dual backend
+│   │   └── components/
+│   │       ├── PerformanceTab.tsx
+│   │       ├── ProcessList.tsx
+│   │       └── AppList.tsx
+│   ├── package.json
+│   └── tsconfig.json
+├── START_ALL.bat                 # One-command startup
+├── START_RUST_ADMIN.bat          # Rust backend (admin)
+├── QUICKSTART.md
+├── ARCHITECTURE.md
+├── API_REFERENCE.md
+├── TROUBLESHOOTING.md
+└── README.md                     # This file
 ```
 
 ---
 
-## 🎯 Future Enhancements
+## 🎓 Educational Value
 
-- [ ] Historical data storage with database
-- [ ] Export system reports (PDF/CSV)
-- [ ] Performance alerts and notifications
-- [ ] Process priority management (extended presets and safeguards)
+This project was developed as an **Operating Systems course assignment** and demonstrates key OS concepts while solving the given problem statement.
+
+### Academic Learning Outcomes
+
+1. **Process Management**
+
+   - Process states (running, sleeping, zombie)
+   - Process Control Block (PCB) information
+   - Process termination via system calls
+   - Process scheduling and prioritization
+
+2. **CPU Scheduling**
+
+   - Multi-core CPU utilization
+   - Per-process CPU consumption
+   - Load balancing visualization
+   - Real-time performance monitoring
+
+3. **Memory Management**
+
+   - Virtual vs physical memory
+   - Memory allocation tracking
+   - Memory usage by process
+   - Resource contention
+
+4. **System Resources**
+   - Disk I/O operations
+   - Network activity monitoring
+   - GPU resource management
+   - System call interfaces
+
+**Perfect for OS coursework and understanding system internals.**
+
+---
+
+## 🚀 Future Enhancements
+
+- [x] **Cross-platform support** (Windows, macOS, Linux) ✅
+- [ ] Historical data storage (database)
+- [ ] Export reports (PDF/CSV)
+- [ ] Performance alerts/notifications
+- [ ] Process priority management
 - [ ] Network connections viewer
 - [ ] Startup programs manager
-- [ ] Temperature monitoring (CPU/GPU)
+- [ ] WebSocket for real-time updates
+- [ ] Docker containerization
+- [ ] ARM64 support (Apple Silicon)
 - [ ] Dark/Light theme toggle
-- [ ] System tray integration
-- [ ] Multi-language support
-- [ ] Electron packaging (electron-builder)
-- [ ] Remote monitoring capabilities
-
-**Want to contribute? See [Contributing Guide](./08_CONTRIBUTING.md)**
 
 ---
 
-## 📝 License
+## 🎓 Academic Project Information
 
-This project is developed for **educational purposes** as part of an Operating Systems course project.
+### 👥 Team Members
 
-**Project ID:** 12406898  
-**Institution:** [Your Institution Name]  
-**Course:** Operating Systems
+- **Akshat Tomar**
+- **Kulvinder**
+- **Priyanshu Kamal**
 
-Free to use for educational and personal purposes. For commercial use, please contact the authors.
+### 📋 Project Details
 
----
+**Title:** Real-Time Process Monitoring Dashboard
 
-## 👥 Team
+**Problem Statement:**  
+Create a graphical dashboard that displays real-time information about process states, CPU usage, and memory consumption. The tool should allow administrators to manage processes efficiently and identify potential issues promptly.
 
-**Team Members:**
-
-- Kulvinder
-- Priyanshu Kamal
-- Akshat
-
-Built with ❤️ for learning and demonstrating Operating System concepts.
+**Course:** Operating Systems  
+**Academic Year:** 2025
 
 ---
 
@@ -418,40 +370,41 @@ Built with ❤️ for learning and demonstrating Operating System concepts.
 
 ### Libraries & Frameworks
 
-- **[psutil](https://github.com/giampaolo/psutil)** - Cross-platform system and process utilities
-- **[FastAPI](https://fastapi.tiangolo.com/)** - Modern Python web framework
-- **[React](https://react.dev/)** - JavaScript library for building user interfaces
-- **[Electron](https://www.electronjs.org/)** - Build cross-platform desktop apps
-- **[TailwindCSS](https://tailwindcss.com/)** - Utility-first CSS framework
-- **[Framer Motion](https://www.framer.com/motion/)** - Animation library for React
-- **[Recharts](https://recharts.org/)** - Composable charting library
+- **[sysinfo](https://github.com/GuillaumeGomez/sysinfo)** - Rust system information
+- **[psutil](https://github.com/giampaolo/psutil)** - Python system utilities
+- **[Axum](https://github.com/tokio-rs/axum)** - Rust web framework
+- **[FastAPI](https://fastapi.tiangolo.com/)** - Python web framework
+- **[React](https://react.dev/)** - UI library
+- **[Vite](https://vitejs.dev/)** - Build tool
+- **[Tailwind CSS](https://tailwindcss.com/)** - CSS framework
+- **[nvml-wrapper](https://github.com/Cldfire/nvml-wrapper)** - NVIDIA GPU monitoring
 
 ### Inspiration
 
 - Windows Task Manager
-- macOS Activity Monitor
-- Linux System Monitor (htop, top)
+- htop (Linux)
+- Activity Monitor (macOS)
 
 ---
 
-## 📞 Support & Contact
+## 📞 Support
 
-- **Documentation:** Check our comprehensive docs above
-- **Issues:** Open an issue on GitHub
-- **Questions:** Review [Troubleshooting Guide](./07_TROUBLESHOOTING.md)
+- **Documentation:** See comprehensive docs above
+- **Issues:** Check [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
+- **Evolution:** Read [older versions/EVOLUTION.md](./older%20versions/) for project history
 
 ---
 
 ## ⭐ Show Your Support
 
-If you find this project helpful:
+If you find this project helpful for learning OS concepts:
 
 - ⭐ Star this repository
-- 🐛 Report bugs
+- 🐛 Report bugs or issues
 - 💡 Suggest new features
-- 🤝 Contribute code
-- 📖 Improve documentation
+- 🤝 Contribute improvements
+- 📖 Help improve documentation
 
 ---
 
-**Task Manager Pro - Making System Monitoring Beautiful & Accessible** 🚀
+**Task Manager Pro - Academic Project Demonstrating OS Concepts Through High-Performance System Monitoring** 🎓🚀

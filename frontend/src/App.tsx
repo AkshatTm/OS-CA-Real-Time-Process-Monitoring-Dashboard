@@ -23,8 +23,7 @@ const RUST_API_URL = "http://localhost:8000"; // Rust backend (fast)
 const PYTHON_API_URL = "http://localhost:8001"; // Python backend (accurate CPU)
 
 // Set axios defaults for better stability
-axios.defaults.timeout = 5000; // 5 second timeout
-axios.defaults.headers.common['Connection'] = 'close'; // Prevent keep-alive issues
+axios.defaults.timeout = 10000; // 10 second timeout
 
 function App() {
   const [currentTab, setCurrentTab] = useState<TabType>("performance");
@@ -55,7 +54,11 @@ function App() {
       const response = await axios.get<ProcessListResponse>(
         `${PYTHON_API_URL}/api/processes`
       );
-      console.log("Processes received:", response.data.total_count, "processes");
+      console.log(
+        "Processes received:",
+        response.data.total_count,
+        "processes"
+      );
       setProcesses(response.data.processes);
       setLoading(false);
     } catch (error) {
@@ -98,19 +101,19 @@ function App() {
         const results = await Promise.allSettled([
           fetchSystemStats(),
           fetchProcesses(),
-          fetchApps()
+          fetchApps(),
         ]);
-        
+
         console.log("Results:", results);
-        
+
         // Check if any succeeded
-        const anySuccess = results.some(r => r.status === 'fulfilled');
+        const anySuccess = results.some((r) => r.status === "fulfilled");
         if (anySuccess) {
           console.log("✅ At least one data source loaded successfully!");
         } else {
           console.warn("⚠️ All data sources failed, but showing app anyway");
         }
-        
+
         setInitialLoad(false);
       } catch (error) {
         console.error("❌ Error loading initial data:", error);
