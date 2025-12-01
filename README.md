@@ -77,7 +77,14 @@ Our hybrid architecture solution exceeds the original requirements:
 
 **Innovation:** Hybrid Rust + Python architecture for optimal speed + accuracy balance.
 
----
+| Requirement                       | Our Implementation                       | Enhancement                              |
+| --------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| **Real-time process information** | ✅ 2-second refresh with dual backends   | Added GPU monitoring, disk/network stats |
+| **Process states display**        | ✅ Complete process status tracking      | Color-coded status indicators            |
+| **CPU usage monitoring**          | ✅ Accurate per-process CPU percentages  | Overall + per-core visualization         |
+| **Memory consumption tracking**   | ✅ Real-time memory usage                | Memory percentage + absolute values      |
+| **Administrator management**      | ✅ Process termination with admin rights | Process details, application grouping    |
+| **Issue identification**          | ✅ Sort by CPU/Memory, search/filter     | Performance graphs, trend analysis       |
 
 ## 🛠️ Technology Stack
 
