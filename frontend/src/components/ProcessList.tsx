@@ -50,6 +50,19 @@ export default function ProcessList({
   const [processInfo, setProcessInfo] = useState<ProcessInfo | null>(null);
   const tableRowsRef = useRef<HTMLTableRowElement[]>([]);
 
+  // Filter and sort processes
+  const filteredProcesses = processes
+    .filter(
+      (proc) =>
+        proc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        proc.pid.toString().includes(searchTerm)
+    )
+    .sort((a, b) => {
+      const aVal = a[sortBy] as number;
+      const bVal = b[sortBy] as number;
+      return sortOrder === "asc" ? aVal - bVal : bVal - aVal;
+    });
+
   // GSAP stagger animation for table rows
   useEffect(() => {
     if (tableRowsRef.current.length > 0) {
@@ -66,19 +79,6 @@ export default function ProcessList({
       );
     }
   }, [filteredProcesses]);
-
-  // Filter and sort processes
-  const filteredProcesses = processes
-    .filter(
-      (proc) =>
-        proc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        proc.pid.toString().includes(searchTerm)
-    )
-    .sort((a, b) => {
-      const aVal = a[sortBy] as number;
-      const bVal = b[sortBy] as number;
-      return sortOrder === "asc" ? aVal - bVal : bVal - aVal;
-    });
 
   const handleSort = (column: keyof Process) => {
     if (sortBy === column) {

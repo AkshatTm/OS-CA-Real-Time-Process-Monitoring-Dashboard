@@ -70,52 +70,63 @@ def is_user_app(proc_info: dict) -> bool:
     return True
 
 async def get_processes_fast():
-    """Fetch processes with accurate CPU percentages"""
+    """Fetch processes with accurate CPU percentages - optimized version"""
     def fetch_processes():
         processes = []
         num_cpus = psutil.cpu_count()
         
-        # Minimal attributes for performance
+        # Minimal attributes for performance - removed slow attributes
         attrs = ['pid', 'name', 'username', 'cpu_percent', 'memory_percent', 
-                 'memory_info', 'status', 'create_time', 'num_threads', 'exe']
+                 'memory_info', 'status', 'num_threads']
         
-        for proc in psutil.process_iter(attrs, ad_value=None):
-            try:
-                pinfo = proc.info
-                if not pinfo or pinfo['pid'] == 0:
+        try:
+            for proc in psutil.process_iter(attrs, ad_value=None):
+                try:
+                    pinfo = proc.info
+                    if not pinfo or pinfo['pid'] == 0:
+                        continue
+                    
+                    # Accurate CPU normalization (this is why we use Python!)
+                    cpu_val = (pinfo.get('cpu_percent') or 0) / num_cpus
+                    
+                    processes.append({
+                        'pid': pinfo['pid'],
+                        'name': pinfo['name'],
+                        'username': pinfo.get('username') or 'N/A',
+                        'cpu_percent': round(cpu_val, 1),
+                        'memory_percent': round(pinfo.get('memory_percent') or 0, 1),
+                        'memory_mb': round((pinfo['memory_info'].rss / 1048576), 1) if pinfo.get('memory_info') else 0,
+                        'status': pinfo.get('status') or 'unknown',
+                        'num_threads': pinfo.get('num_threads') or 0,
+                        'create_time': 0,  # Simplified
+                        'exe': '',  # Removed slow exe lookup
+                        'is_protected': is_system_process(pinfo['name'])
+                    })
+                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                     continue
-                
-                # Accurate CPU normalization (this is why we use Python!)
-                cpu_val = (pinfo.get('cpu_percent') or 0) / num_cpus
-                
-                processes.append({
-                    'pid': pinfo['pid'],
-                    'name': pinfo['name'],
-                    'username': pinfo.get('username') or 'N/A',
-                    'cpu_percent': round(cpu_val, 1),
-                    'memory_percent': round(pinfo.get('memory_percent') or 0, 1),
-                    'memory_mb': round((pinfo['memory_info'].rss / 1048576), 1) if pinfo.get('memory_info') else 0,
-                    'status': pinfo.get('status') or 'unknown',
-                    'num_threads': pinfo.get('num_threads') or 0,
-                    'create_time': pinfo.get('create_time'),
-                    'exe': pinfo.get('exe') or '',
-                    'is_protected': is_system_process(pinfo['name'])
-                })
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-                pass
+        except Exception as e:
+            print(f"Error in process iteration: {e}")
         
         return processes
     
-    # Run in thread pool
+    # Run in thread pool with timeout
     loop = asyncio.get_event_loop()
-    processes = await loop.run_in_executor(executor, fetch_processes)
-    
-    return {'processes': processes, 'total_count': len(processes)}
+    try:
+        processes = await asyncio.wait_for(
+            loop.run_in_executor(executor, fetch_processes),
+            timeout=8.0  # 8 second timeout for safety
+        )
+        return {'processes': processes, 'total_count': len(processes)}
+    except asyncio.TimeoutError:
+        return {'processes': [], 'total_count': 0}
 
 async def get_apps_grouped():
-    """Group processes by application name with accurate CPU percentages"""
+    """Group processes by application name with accurate CPU percentages - optimized"""
     proc_data = await get_processes_fast()
     processes = proc_data['processes']
+    
+    if not processes:
+        return []
     
     apps_dict = defaultdict(lambda: {
         'name': '',
@@ -135,7 +146,7 @@ async def get_apps_grouped():
             continue
         
         # Skip system accounts
-        if proc['username'] in ['SYSTEM', 'N/A']:
+        if proc['username'] in ['SYSTEM', 'N/A', 'NT AUTHORITY\\SYSTEM']:
             continue
         
         # Get base name (remove .exe suffix)
@@ -149,9 +160,6 @@ async def get_apps_grouped():
         app['memory_mb'] += proc['memory_mb']
         app['memory_percent'] += proc['memory_percent']
         app['process_count'] += 1
-        
-        if not app['exe'] and proc['exe']:
-            app['exe'] = proc['exe']
         
         if proc['status'] != 'running':
             app['status'] = proc['status']
