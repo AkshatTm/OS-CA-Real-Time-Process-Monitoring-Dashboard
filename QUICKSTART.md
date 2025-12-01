@@ -11,7 +11,7 @@ Get our hybrid Rust + Python + TypeScript system monitoring dashboard running in
 - **Rust**: Latest stable version ([rustup.rs](https://rustup.rs))
 - **Python 3.8+**: With pip installed
 - **Node.js 18+**: With npm ([nodejs.org](https://nodejs.org))
-- **Supported OS**:
+- **Supported OS**: 
   - Windows 10/11 (x64)
   - macOS 10.15+ (Intel or Apple Silicon)
   - Linux (Ubuntu 20.04+, Fedora 35+, Arch Linux)
@@ -43,14 +43,12 @@ cargo build --release
 ### Option 1: Automatic Startup (Recommended)
 
 **Windows:**
-
 ```bash
 # Run as Administrator
 START_ALL.bat
 ```
 
 **macOS/Linux:**
-
 ```bash
 # Make executable (first time only)
 chmod +x start_all.sh
@@ -80,14 +78,12 @@ python main.py
 
 **Terminal 2 - Rust Backend:**
 
-_Windows (as Administrator):_
-
+*Windows (as Administrator):*
 ```bash
 START_RUST_ADMIN.bat
 ```
 
-_macOS/Linux:_
-
+*macOS/Linux:*
 ```bash
 cd backend
 sudo cargo run --release

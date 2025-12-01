@@ -23,7 +23,8 @@ const RUST_API_URL = "http://localhost:8000"; // Rust backend (fast)
 const PYTHON_API_URL = "http://localhost:8001"; // Python backend (accurate CPU)
 
 // Set axios defaults for better stability
-axios.defaults.timeout = 10000; // 10 second timeout
+axios.defaults.timeout = 5000; // 5 second timeout
+axios.defaults.headers.common["Connection"] = "close"; // Prevent keep-alive issues
 
 function App() {
   const [currentTab, setCurrentTab] = useState<TabType>("performance");
