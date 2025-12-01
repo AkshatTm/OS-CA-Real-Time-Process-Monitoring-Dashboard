@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
@@ -18,6 +20,9 @@ import type {
   AppsListResponse,
 } from "./types";
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
 // Configure axios
 const RUST_API_URL = "http://localhost:8000"; // Rust backend (fast)
 const PYTHON_API_URL = "http://localhost:8001"; // Python backend (accurate CPU)
@@ -32,6 +37,25 @@ function App() {
   const [apps, setApps] = useState<AppGroup[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
+  const mainContentRef = useRef<HTMLElement>(null);
+
+  // GSAP animation on tab change
+  useEffect(() => {
+    if (mainContentRef.current) {
+      gsap.fromTo(
+        mainContentRef.current.children,
+        { opacity: 0, y: 30, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.1,
+        }
+      );
+    }
+  }, [currentTab]);
 
   // Fetch system stats from Rust backend
   const fetchSystemStats = async (): Promise<void> => {
@@ -171,7 +195,7 @@ function App() {
             <Header systemStats={systemStats} />
 
             {/* Content Area */}
-            <main className="flex-1 overflow-y-auto p-6">
+            <main ref={mainContentRef} className="flex-1 overflow-y-auto p-6">
               <AnimatePresence mode="wait">
                 {currentTab === "dashboard" && (
                   <motion.div

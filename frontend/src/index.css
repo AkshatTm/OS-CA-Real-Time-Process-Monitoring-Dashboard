@@ -5,10 +5,14 @@
 @layer base {
   * {
     @apply border-dark-border;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
   }
 
   body {
-    @apply bg-dark-bg text-white font-sans antialiased;
+    @apply bg-dark-bg text-white antialiased;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
   }
 
   ::-webkit-scrollbar {
