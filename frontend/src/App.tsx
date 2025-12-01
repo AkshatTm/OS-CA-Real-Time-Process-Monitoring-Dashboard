@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Toaster } from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./components/Dashboard";
@@ -18,9 +20,11 @@ import type {
   AppsListResponse,
 } from "./types";
 
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
+
 // Configure axios
-const RUST_API_URL = "http://localhost:8000"; // Rust backend (fast)
-const PYTHON_API_URL = "http://localhost:8001"; // Python backend (accurate CPU)
+const API_URL = "http://localhost:8000"; // Rust backend only
 
 // Set axios defaults for better stability
 axios.defaults.timeout = 5000; // 5 second timeout
@@ -33,13 +37,32 @@ function App() {
   const [apps, setApps] = useState<AppGroup[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [initialLoad, setInitialLoad] = useState<boolean>(true);
+  const mainContentRef = useRef<HTMLElement>(null);
+
+  // GSAP animation on tab change
+  useEffect(() => {
+    if (mainContentRef.current) {
+      gsap.fromTo(
+        mainContentRef.current.children,
+        { opacity: 0, y: 30, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          stagger: 0.1,
+        }
+      );
+    }
+  }, [currentTab]);
 
   // Fetch system stats from Rust backend
   const fetchSystemStats = async (): Promise<void> => {
     try {
       console.log("Fetching stats from Rust backend...");
       const response = await axios.get<SystemStats>(
-        `${RUST_API_URL}/api/stats`
+        `${API_URL}/api/stats`
       );
       console.log("Stats received:", response.data);
       setSystemStats(response.data);
@@ -48,12 +71,12 @@ function App() {
     }
   };
 
-  // Fetch processes from Python backend (accurate CPU)
+  // Fetch processes from Rust backend
   const fetchProcesses = async (): Promise<void> => {
     try {
-      console.log("Fetching processes from Python backend...");
+      console.log("Fetching processes from Rust backend...");
       const response = await axios.get<ProcessListResponse>(
-        `${PYTHON_API_URL}/api/processes`
+        `${API_URL}/api/processes`
       );
       console.log(
         "Processes received:",
@@ -68,12 +91,12 @@ function App() {
     }
   };
 
-  // Fetch apps from Python backend (accurate CPU)
+  // Fetch apps from Rust backend
   const fetchApps = async (): Promise<void> => {
     try {
-      console.log("Fetching apps from Python backend...");
+      console.log("Fetching apps from Rust backend...");
       const response = await axios.get<AppsListResponse>(
-        `${PYTHON_API_URL}/api/apps`
+        `${API_URL}/api/apps`
       );
       console.log("Apps received:", response.data.total_count, "apps");
       setApps(response.data.apps);
@@ -82,10 +105,10 @@ function App() {
     }
   };
 
-  // Kill an app (all its processes) - use Rust backend for speed
+  // Kill an app (all its processes) - use Rust backend
   const killApp = async (pids: number[]): Promise<void> => {
     try {
-      await axios.post(`${RUST_API_URL}/api/app/close`, pids);
+      await axios.post(`${API_URL}/api/app/close`, pids);
       // Refresh both apps and processes
       await Promise.all([fetchApps(), fetchProcesses()]);
     } catch (error) {
@@ -172,7 +195,7 @@ function App() {
             <Header systemStats={systemStats} />
 
             {/* Content Area */}
-            <main className="flex-1 overflow-y-auto p-6">
+            <main ref={mainContentRef} className="flex-1 overflow-y-auto p-6">
               <AnimatePresence mode="wait">
                 {currentTab === "dashboard" && (
                   <motion.div

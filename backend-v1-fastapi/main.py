@@ -13,9 +13,14 @@ from typing import List, Dict
 from collections import defaultdict
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
+import time
 
 # Thread pool for CPU-intensive operations
 executor = ThreadPoolExecutor(max_workers=4)
+
+# Global cache for process objects to track CPU over time
+_process_objects = {}
+_last_cpu_call = 0
 
 # System process names to exclude from Apps
 SYSTEM_PROCESSES = {
@@ -29,8 +34,7 @@ SYSTEM_PROCESSES = {
 
 app = FastAPI(
     title="Task Manager Pro - Python CPU Backend",
-    version="2.0.0",
-    default_response_class=ORJSONResponse
+    version="2.0.0"
 )
 
 # CORS with optimized settings
@@ -76,46 +80,67 @@ async def get_processes_fast():
         num_cpus = psutil.cpu_count()
         
         # Minimal attributes for performance
-        attrs = ['pid', 'name', 'username', 'cpu_percent', 'memory_percent', 
-                 'memory_info', 'status', 'create_time', 'num_threads', 'exe']
+        attrs = ['pid', 'name', 'username', 'memory_percent', 
+                 'memory_info', 'status', 'num_threads']
         
-        for proc in psutil.process_iter(attrs, ad_value=None):
-            try:
-                pinfo = proc.info
-                if not pinfo or pinfo['pid'] == 0:
+        try:
+            for proc in psutil.process_iter(attrs, ad_value=None):
+                try:
+                    pinfo = proc.info
+                    if not pinfo or pinfo['pid'] == 0:
+                        continue
+                    
+                    # Get CPU percent - will be 0 on first call, accurate after
+                    cpu_val = 0.0
+                    try:
+                        cpu_raw = proc.cpu_percent(interval=0)
+                        cpu_val = cpu_raw / num_cpus if num_cpus > 0 else 0.0
+                    except:
+                        cpu_val = 0.0
+                    
+                    processes.append({
+                        'pid': pinfo['pid'],
+                        'name': pinfo['name'],
+                        'username': pinfo.get('username') or 'N/A',
+                        'cpu_percent': round(cpu_val, 1),
+                        'memory_percent': round(pinfo.get('memory_percent') or 0, 1),
+                        'memory_mb': round((pinfo['memory_info'].rss / 1048576), 1) if pinfo.get('memory_info') else 0,
+                        'status': pinfo.get('status') or 'unknown',
+                        'num_threads': pinfo.get('num_threads') or 0,
+                        'create_time': 0,
+                        'exe': '',
+                        'is_protected': is_system_process(pinfo['name'])
+                    })
+                except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
                     continue
-                
-                # Accurate CPU normalization (this is why we use Python!)
-                cpu_val = (pinfo.get('cpu_percent') or 0) / num_cpus
-                
-                processes.append({
-                    'pid': pinfo['pid'],
-                    'name': pinfo['name'],
-                    'username': pinfo.get('username') or 'N/A',
-                    'cpu_percent': round(cpu_val, 1),
-                    'memory_percent': round(pinfo.get('memory_percent') or 0, 1),
-                    'memory_mb': round((pinfo['memory_info'].rss / 1048576), 1) if pinfo.get('memory_info') else 0,
-                    'status': pinfo.get('status') or 'unknown',
-                    'num_threads': pinfo.get('num_threads') or 0,
-                    'create_time': pinfo.get('create_time'),
-                    'exe': pinfo.get('exe') or '',
-                    'is_protected': is_system_process(pinfo['name'])
-                })
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-                pass
+        except Exception as e:
+            print(f"Error in process iteration: {e}")
         
         return processes
     
-    # Run in thread pool
+    # Run in thread pool with timeout
     loop = asyncio.get_event_loop()
-    processes = await loop.run_in_executor(executor, fetch_processes)
-    
-    return {'processes': processes, 'total_count': len(processes)}
+    try:
+        processes = await asyncio.wait_for(
+            loop.run_in_executor(executor, fetch_processes),
+            timeout=8.0
+        )
+        print(f"✅ Fetched {len(processes)} processes")
+        return {'processes': processes, 'total_count': len(processes)}
+    except asyncio.TimeoutError:
+        print("⚠️ Process fetching timed out!")
+        return {'processes': [], 'total_count': 0}
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return {'processes': [], 'total_count': 0}
 
 async def get_apps_grouped():
-    """Group processes by application name with accurate CPU percentages"""
+    """Group processes by application name with accurate CPU percentages - optimized"""
     proc_data = await get_processes_fast()
     processes = proc_data['processes']
+    
+    if not processes:
+        return []
     
     apps_dict = defaultdict(lambda: {
         'name': '',
@@ -130,12 +155,8 @@ async def get_apps_grouped():
     })
     
     for proc in processes:
-        # Skip system processes
-        if is_system_process(proc['name']):
-            continue
-        
-        # Skip system accounts
-        if proc['username'] in ['SYSTEM', 'N/A']:
+        # Skip if it's a system process AND running as SYSTEM account
+        if is_system_process(proc['name']) and proc['username'] in ['SYSTEM', 'N/A', 'NT AUTHORITY\\SYSTEM']:
             continue
         
         # Get base name (remove .exe suffix)
@@ -149,9 +170,6 @@ async def get_apps_grouped():
         app['memory_mb'] += proc['memory_mb']
         app['memory_percent'] += proc['memory_percent']
         app['process_count'] += 1
-        
-        if not app['exe'] and proc['exe']:
-            app['exe'] = proc['exe']
         
         if proc['status'] != 'running':
             app['status'] = proc['status']
@@ -217,11 +235,11 @@ if __name__ == "__main__":
     
     uvicorn.run(
         app,
-        host="127.0.0.1",  # Use localhost instead of 0.0.0.0 for Windows stability
+        host="127.0.0.1",
         port=8001,
-        log_level="warning",
-        access_log=False,
+        log_level="info",  # Changed to info for debugging
+        access_log=True,  # Enable access log
         workers=1,
-        timeout_keep_alive=5,  # Reduce keep-alive timeout
-        limit_concurrency=100  # Limit concurrent connections
+        timeout_keep_alive=30,  # Increased
+        limit_concurrency=100
     )
