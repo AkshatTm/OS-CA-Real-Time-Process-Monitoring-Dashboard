@@ -1,28 +1,7 @@
-/**
- * updateGraphToolkit.ts
- *
- * Standalone graph algorithms and network modeling helpers for demos and experiments.
- * No imports, no side-effects — safe to keep unused until integrated.
- *
- * Includes:
- *  - Graph container (directed/undirected)
- *  - BFS / DFS / path reconstruction
- *  - Dijkstra & Bellman-Ford shortest paths
- *  - Topological sort, cycle detection
- *  - Tarjan strongly connected components
- *  - Kruskal & Prim minimum spanning trees
- *  - Random graph generators and small analysis utilities
- *
- * All functions are self-contained and do not interact with the main application.
- */
-
 export type NodeId = string | number;
 
 const toKey = (id: NodeId) => String(id);
 
-/* =========================
- * Minimal binary min-heap for dijkstra/prim
- * ========================= */
 type HeapItem = { key: string; priority: number };
 
 class MinHeap {
@@ -163,10 +142,6 @@ export class Graph {
  * Basic traversal: BFS / DFS
  * ========================= */
 
-/**
- * Breadth-first search from start node.
- * Returns visit order and parent/distance maps.
- */
 export const bfs = (g: Graph, start: NodeId) => {
     const s = toKey(start);
     if (!g.hasNode(s)) return { order: [], parent: new Map<string, string | null>(), distance: new Map<string, number>() };
@@ -191,10 +166,6 @@ export const bfs = (g: Graph, start: NodeId) => {
     return { order, parent, distance: dist };
 };
 
-/**
- * Depth-first traversal (iterative).
- * Returns preorder and postorder listing.
- */
 export const dfs = (g: Graph, start?: NodeId) => {
     const nodes = start ? [toKey(start)] : g.nodes();
     const visited = new Set<string>();
@@ -227,10 +198,6 @@ export const dfs = (g: Graph, start?: NodeId) => {
     return { pre, post };
 };
 
-/* =========================
- * Path helpers
- * ========================= */
-
 export const reconstructPath = (parent: Map<string, string | null>, from: NodeId, to: NodeId): string[] => {
     const t = toKey(to);
     const f = toKey(from);
@@ -244,10 +211,6 @@ export const reconstructPath = (parent: Map<string, string | null>, from: NodeId
     }
     return path.reverse();
 };
-
-/* =========================
- * Dijkstra shortest path (non-negative weights)
- * ========================= */
 
 export const dijkstra = (g: Graph, source: NodeId) => {
     const s = toKey(source);
