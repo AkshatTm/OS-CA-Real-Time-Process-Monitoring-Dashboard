@@ -24,8 +24,7 @@ import type {
 gsap.registerPlugin(ScrollTrigger);
 
 // Configure axios
-const RUST_API_URL = "http://localhost:8000"; // Rust backend (fast)
-const PYTHON_API_URL = "http://localhost:8001"; // Python backend (accurate CPU)
+const API_URL = "http://localhost:8000"; // Rust backend only
 
 // Set axios defaults for better stability
 axios.defaults.timeout = 10000; // 10 second timeout
@@ -62,7 +61,7 @@ function App() {
     try {
       console.log("Fetching stats from Rust backend...");
       const response = await axios.get<SystemStats>(
-        `${RUST_API_URL}/api/stats`
+        `${API_URL}/api/stats`
       );
       console.log("Stats received:", response.data);
       setSystemStats(response.data);
@@ -71,12 +70,12 @@ function App() {
     }
   };
 
-  // Fetch processes from Python backend (accurate CPU)
+  // Fetch processes from Rust backend
   const fetchProcesses = async (): Promise<void> => {
     try {
-      console.log("Fetching processes from Python backend...");
+      console.log("Fetching processes from Rust backend...");
       const response = await axios.get<ProcessListResponse>(
-        `${PYTHON_API_URL}/api/processes`
+        `${API_URL}/api/processes`
       );
       console.log(
         "Processes received:",
@@ -91,12 +90,12 @@ function App() {
     }
   };
 
-  // Fetch apps from Python backend (accurate CPU)
+  // Fetch apps from Rust backend
   const fetchApps = async (): Promise<void> => {
     try {
-      console.log("Fetching apps from Python backend...");
+      console.log("Fetching apps from Rust backend...");
       const response = await axios.get<AppsListResponse>(
-        `${PYTHON_API_URL}/api/apps`
+        `${API_URL}/api/apps`
       );
       console.log("Apps received:", response.data.total_count, "apps");
       setApps(response.data.apps);
@@ -105,10 +104,10 @@ function App() {
     }
   };
 
-  // Kill an app (all its processes) - use Rust backend for speed
+  // Kill an app (all its processes) - use Rust backend
   const killApp = async (pids: number[]): Promise<void> => {
     try {
-      await axios.post(`${RUST_API_URL}/api/app/close`, pids);
+      await axios.post(`${API_URL}/api/app/close`, pids);
       // Refresh both apps and processes
       await Promise.all([fetchApps(), fetchProcesses()]);
     } catch (error) {

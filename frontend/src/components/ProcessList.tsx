@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import type { Process } from "../types";
 
 // Backend URLs
-const RUST_API_URL = "http://localhost:8000"; // Rust backend for killing processes
+const API_URL = "http://localhost:8000"; // Rust backend
 
 interface ProcessInfo {
   pid: number;
@@ -111,7 +111,7 @@ export default function ProcessList({
     try {
       // Use Rust backend for killing processes
       await axios.post(
-        `${RUST_API_URL}/api/process/${selectedProcess.pid}/kill`
+        `${API_URL}/api/process/${selectedProcess.pid}/kill`
       );
       toast.success(`Process ${selectedProcess.name} ended successfully`, {
         id: loadingToast,
@@ -133,7 +133,7 @@ export default function ProcessList({
     try {
       // Use Rust backend for process info
       const response = await axios.get(
-        `${RUST_API_URL}/api/process/${proc.pid}/info`
+        `${API_URL}/api/process/${proc.pid}/info`
       );
       setProcessInfo(response.data);
     } catch (error: any) {
