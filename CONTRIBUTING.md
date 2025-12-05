@@ -52,7 +52,7 @@ git remote add upstream https://github.com/AkshatTm/OS-CA-Real-Time-Process-Moni
 ```bash
 # Python backend dependencies
 cd "older versions/v1-python-only/backend-v1-fastapi"
-pip install -r requirements.txt
+pip install -r requirements_basic.txt
 
 # Rust backend dependencies
 cd ../../backend
